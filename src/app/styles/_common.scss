@@ -3,11 +3,6 @@
     overflow-y: auto;
 }
 
-.container {
-    max-width: 1170px;
-    margin: 0 auto;
-}
-
 main {
     display: flex;
     flex-direction: column;
@@ -29,6 +24,19 @@ main {
 
     &.hidden {
         height: 100%;
+    }
+}
+
+.container {
+    width: 100%;
+    max-width: 1024px;
+    height: 100%;
+    margin: 0 auto;
+
+    &.line {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
     }
 }
 

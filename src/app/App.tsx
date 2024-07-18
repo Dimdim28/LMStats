@@ -66,13 +66,17 @@ const App = () => {
                 ref={scrollableContainerRef}
                 className={!data || !activeUser ? 'hidden' : undefined}
             >
-                {currentStep === 'upload' && <UploadFile setData={setData} />}
-                {currentStep === 'user' && (
-                    <UserStats data={data} user={activeUser} />
-                )}
-                {currentStep === 'guild' && (
-                    <GuildStats data={data} onClickUser={handleUserClick} />
-                )}
+                <div className="container ">
+                    {currentStep === 'upload' && (
+                        <UploadFile setData={setData} />
+                    )}
+                    {currentStep === 'user' && (
+                        <UserStats data={data} user={activeUser} />
+                    )}
+                    {currentStep === 'guild' && (
+                        <GuildStats data={data} onClickUser={handleUserClick} />
+                    )}
+                </div>
             </main>
         </>
     );

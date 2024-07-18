@@ -18,22 +18,24 @@ export const Header: FC<HeaderProps> = ({
 }) => {
     return (
         <header className={clsx(styles.header, { [styles.hidden]: hidden })}>
-            <Button
-                isHighlited={currentStep === 'user'}
-                text="User`s stats"
-                onClick={() => {
-                    setCurrentStep('user');
-                }}
-                buttonClass="buttonBlue"
-            />
-            <Button
-                isHighlited={currentStep === 'guild'}
-                text="Guild stats"
-                onClick={() => {
-                    setCurrentStep('guild');
-                }}
-                buttonClass="buttonBlue"
-            />
+            <div className="container line">
+                <Button
+                    isHighlited={currentStep === 'user'}
+                    text="User`s stats"
+                    onClick={() => {
+                        setCurrentStep('user');
+                    }}
+                    buttonClass="buttonBlue"
+                />
+                <Button
+                    isHighlited={currentStep === 'guild'}
+                    text="Guild stats"
+                    onClick={() => {
+                        setCurrentStep('guild');
+                    }}
+                    buttonClass="buttonBlue"
+                />
+            </div>
         </header>
     );
 };
