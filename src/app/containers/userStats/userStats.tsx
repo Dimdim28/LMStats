@@ -2,6 +2,7 @@ import { FC } from 'react';
 
 import { Line, Progress, Title } from '../../components';
 import { ExcelUser } from '../../constants';
+import { getPercentValue } from '../../helpers';
 
 import styles from './userStats.module.scss';
 
@@ -73,7 +74,7 @@ export const UserStats: FC<UserStatsProps> = ({ data, user }) => {
                         <Line text="Total points" value={`${pointsHunt}`} />
                     </div>
                     <div className={styles.progressWrapper}>
-                        <Progress value={Math.round(goalHunt * 100)} />
+                        <Progress value={getPercentValue(goalHunt)} />
                     </div>
                 </div>
             </div>
@@ -89,7 +90,7 @@ export const UserStats: FC<UserStatsProps> = ({ data, user }) => {
                         <Line text="Total points" value={`${pointsPurchase}`} />
                     </div>
                     <div className={styles.progressWrapper}>
-                        <Progress value={Math.round(goalPurch * 100)} />
+                        <Progress value={getPercentValue(goalPurch)} />
                     </div>
                 </div>
             </div>

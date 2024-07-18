@@ -2,7 +2,12 @@ import { FC, useState } from 'react';
 
 import { Button, Checkbox, SearchUser, UserLine } from '../../components';
 import { ExcelUser, SortingTabType } from '../../constants';
-import { getSortedData } from '../../helpers';
+import {
+    filterUsersByName,
+    getPercentValue,
+    getSortedData,
+    getStatValue,
+} from '../../helpers';
 
 import styles from './guildStats.module.scss';
 
@@ -15,26 +20,6 @@ export const GuildStats: FC<GuildStatsProps> = ({ data, onClickUser }) => {
     const [activeTab, setActiveTab] = useState<SortingTabType>('Hunt');
     const [fullInfoToCopy, setFullInfoToCopy] = useState(false);
     const [searchText, setSearchText] = useState('');
-
-    const getValue = (data: ExcelUser, tab: SortingTabType) => {
-        const huntValue = data['Goal Percentage (Hunt)'];
-        const purchaseValue = data['Goal Percentage (Purchase)'];
-        const allValue = huntValue + purchaseValue / 2;
-
-        switch (tab) {
-            case 'Hunt':
-                return huntValue;
-            case 'Purchase':
-                return purchaseValue;
-            default:
-                return allValue;
-        }
-    };
-
-    const filteredByNamesUsers =
-        data?.filter((el) =>
-            el.Name.toLocaleLowerCase().includes(searchText.toLowerCase()),
-        ) || [];
 
     return (
         <div>
@@ -69,16 +54,17 @@ export const GuildStats: FC<GuildStatsProps> = ({ data, onClickUser }) => {
                 />
             </div>
             <div className={styles.usersList}>
-                {getSortedData(filteredByNamesUsers, activeTab)?.map(
-                    (user, id) => (
-                        <UserLine
-                            key={id}
-                            name={user.Name}
-                            value={Math.round(getValue(user, activeTab) * 100)}
-                            onClick={() => onClickUser(user.Name)}
-                        />
-                    ),
-                )}
+                {getSortedData(
+                    filterUsersByName(data, searchText),
+                    activeTab,
+                )?.map((user, id) => (
+                    <UserLine
+                        key={id}
+                        name={user.Name}
+                        value={getPercentValue(getStatValue(user, activeTab))}
+                        onClick={() => onClickUser(user.Name)}
+                    />
+                ))}
             </div>
             <div className={styles.line}>
                 <div className={styles.column}>
