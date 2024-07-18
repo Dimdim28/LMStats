@@ -1,0 +1,30 @@
+@import "../../../app//styles/variables";
+
+.header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 20px;
+    height: 84px;
+    padding: 20px;
+    background: var(--color-red);
+    box-shadow: 0 4px 4px rgb(from var(--color-black) r g b / 25%);
+    transition: all 0.3s;
+
+    &.hidden {
+        height: 0;
+        padding: 0;
+        overflow-y: hidden;
+    }
+
+    @media screen and (width <= 425px) {
+        gap: 10px;
+        height: 70px;
+        padding: 15px;
+    }
+
+    @media screen and (width <= 375px) {
+        height: 60px;
+        padding: 10px;
+    }
+}

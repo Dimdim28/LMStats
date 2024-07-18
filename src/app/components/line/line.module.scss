@@ -1,0 +1,12 @@
+@import "../../../app//styles/variables";
+
+.line {
+    color: var(--color-white);
+    font-weight: 700;
+    font-size: 20px;
+    font-family: Inter, sans-serif;
+
+    .value {
+        color: var(--color-yellow);
+    }
+}

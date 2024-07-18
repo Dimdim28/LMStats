@@ -1,0 +1,30 @@
+@import "../../../app//styles/variables";
+
+.button {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
+    padding: 5px 0;
+    background: transparent;
+    border: none;
+    border-bottom: 2px solid var(--color-gold);
+    transition: 0.3s linear all;
+
+    &:hover {
+        background: var(--color-gold);
+    }
+}
+
+.name {
+    color: var(--color-white);
+    font-weight: 600;
+    font-size: 16px;
+    font-family: Inter, sans-serif;
+}
+
+.value {
+    font-weight: 600;
+    font-size: 16px;
+    font-family: Inter, sans-serif;
+}

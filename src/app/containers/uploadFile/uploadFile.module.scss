@@ -1,0 +1,101 @@
+.container {
+    position: relative;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    height: 100%;
+}
+
+.input {
+    display: none; /* Hide the default file input */
+}
+
+.label {
+    display: block;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 20px;
+    text-align: center;
+    border: 2px dashed var(--color-white);
+    border-radius: 10px;
+    cursor: pointer;
+    transition: border-color 0.3s ease;
+}
+
+.text {
+    margin-top: 30px;
+    color: var(--color-yellow);
+    font-size: 40px;
+    line-height: 50px;
+}
+
+.error {
+    margin-top: 30px;
+    color: var(--color-white);
+    font-size: 30px;
+    line-height: 30px;
+    text-decoration: underline;
+    text-decoration-color: var(--color-red);
+    text-underline-offset: 4px;
+}
+
+.label:hover {
+    border-color: var(--color-yellow);
+}
+
+.document {
+    stroke-dasharray: 20 20;
+    animation: dash 0.5s linear infinite;
+}
+
+@keyframes dash {
+    to {
+        stroke-dashoffset: 40;
+    }
+}
+
+.line1,
+.line2,
+.line3,
+.line4,
+.line5,
+.line6 {
+    fill: var(--color-gold);
+}
+
+@keyframes pulse {
+    0%,
+    100% {
+        fill: var(--color-gold);
+    }
+
+    50% {
+        fill: var(--color-yellow);
+    }
+}
+
+.line1 {
+    animation: pulse 3s linear 0s infinite;
+}
+
+.line2 {
+    animation: pulse 3s linear 0.5s infinite;
+}
+
+.line3 {
+    animation: pulse 3s linear 1s infinite;
+}
+
+.line4 {
+    animation: pulse 3s linear 1.5s infinite;
+}
+
+.line5 {
+    animation: pulse 3s linear 2s infinite;
+}
+
+.line6 {
+    animation: pulse 3s linear 2.5s infinite;
+}

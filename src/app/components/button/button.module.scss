@@ -1,0 +1,56 @@
+@import "../../../app//styles/variables";
+
+.button {
+    padding: 10px 20px;
+    font-weight: 700;
+    font-size: 22px;
+    font-family: Rubik, sans-serif;
+    line-height: 24px;
+    border-radius: 10px;
+    box-shadow:
+        0 3px 4px rgb(from var(--color-black) r g b / 25%),
+        inset 0 1px 0 var(--color-white);
+    cursor: pointer;
+
+    @media screen and (width <= 425px) {
+        font-size: 18px;
+        line-height: 20px;
+    }
+
+    @media screen and (width <= 325px) {
+        padding: 10px;
+        font-size: 16px;
+        line-height: 18px;
+    }
+
+    &:hover {
+        filter: brightness(0.8);
+    }
+
+    &:active,
+    &:focus {
+        filter: brightness(0.9);
+    }
+}
+
+.buttonBlue {
+    color: var(--color-white);
+    background: var(--color-blue);
+    transition: all 0.3s linear;
+
+    &.highlited {
+        color: var(--color-yellow);
+    }
+}
+
+.buttonRed {
+    color: var(--color-white);
+    background: var(--color-red);
+    transition: all 0.3s linear;
+}
+
+.buttonYellow {
+    color: var(--color-white);
+    background: var(--color-gold);
+    transition: all 0.3s linear;
+}
