@@ -3,10 +3,13 @@ import { FC, useState } from 'react';
 import { Button, Checkbox, SearchUser, UserLine } from '../../components';
 import { ExcelUser, SortingTabType } from '../../constants';
 import {
+    copyText,
     filterUsersByName,
+    getFailedUsersList,
     getPercentValue,
     getSortedData,
     getStatValue,
+    stringifyFailersList,
 } from '../../helpers';
 
 import styles from './guildStats.module.scss';
@@ -20,6 +23,11 @@ export const GuildStats: FC<GuildStatsProps> = ({ data, onClickUser }) => {
     const [activeTab, setActiveTab] = useState<SortingTabType>('Hunt');
     const [fullInfoToCopy, setFullInfoToCopy] = useState(false);
     const [searchText, setSearchText] = useState('');
+
+    const sortedData = getSortedData(
+        filterUsersByName(data, searchText),
+        activeTab,
+    );
 
     return (
         <div>
@@ -54,10 +62,7 @@ export const GuildStats: FC<GuildStatsProps> = ({ data, onClickUser }) => {
                 />
             </div>
             <div className={styles.usersList}>
-                {getSortedData(
-                    filterUsersByName(data, searchText),
-                    activeTab,
-                )?.map((user, id) => (
+                {sortedData?.map((user, id) => (
                     <UserLine
                         key={id}
                         name={user.Name}
@@ -69,7 +74,15 @@ export const GuildStats: FC<GuildStatsProps> = ({ data, onClickUser }) => {
             <div className={styles.line}>
                 <div className={styles.column}>
                     <Button
-                        onClick={() => {}}
+                        onClick={() => {
+                            copyText(
+                                stringifyFailersList(
+                                    getFailedUsersList(sortedData, activeTab),
+                                    fullInfoToCopy,
+                                    activeTab,
+                                ),
+                            );
+                        }}
                         buttonClass="buttonRed"
                         text={`Copy falied ${activeTab.toLowerCase()} users`}
                     />

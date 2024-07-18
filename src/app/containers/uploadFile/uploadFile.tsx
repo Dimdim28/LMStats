@@ -24,7 +24,6 @@ export const UploadFile: FC<UploadFileProps> = ({ setData }) => {
                 const worksheet = workbook.Sheets[sheetName];
                 const json: ExcelUser[] = XLSX.utils.sheet_to_json(worksheet);
                 setData(json);
-                console.log(json);
             }
         };
         reader.readAsBinaryString(file);
