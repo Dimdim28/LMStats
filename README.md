@@ -1,33 +1,11 @@
-# Vite + React + TypeScript Starter (codestyle setup + shared folder)
+# Lords Mobile guild stats checker
 
-## 🏃‍♂️ Simple Start
-
-1. Clone the repository, run command:
-
-    ```
-    git clone https://github.com/Valentyn13/react-typescript-starter.git
-    ```
-
-2. Install dependencies with `npm install` command at the root of the project
-
-    ```
-    npm install
-    ```
-
-3. Run command **`npx simple-git-hooks`** at the root
-
-    ```
-    npx simple-git-hooks
-    ```
-
-4. Start project with command **`npm run dev`**
-
-    ```
-    npm run dev
-    ```
-
-5. Enjoy coding ❤️
-
+## 📝 Description
+- Upload the excel file that the bot generated for the last month.
+- Select metrics to check their completion status (`Hunt` / `Purchase` / `Both`). You may also enter a username to find yourself in the list easier.
+- Click on yourself to check your stats with comfortable charts and a list of values split into sections.
+- You may scroll down and click on the button to copy the list of users who failed the task. Use the checkbox to copy percents of completion too.
+  
 ## 🥊 Code quality
 
 -   [simple-git-hooks](https://www.npmjs.com/package/simple-git-hooks) — a tool that lets you easily manage git hooks.
