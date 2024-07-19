@@ -7,6 +7,30 @@
 -   Click on yourself to check your stats with comfortable charts and a list of values split into sections.
 -   You may scroll down and click on the button to copy the list of users who failed the task. Use the checkbox to copy percents of completion too.
 
+## 📃 Allowed column names in Excel structure:
+
+- 'First Hunt Time'
+- 'Goal Percentage (Hunt)'
+- 'Goal Percentage (Purchase)'
+- 'Hunt'
+- 'L1 (Hunt)'
+- 'L1 (Purchase)'
+- 'L2 (Hunt)'
+- 'L2 (Purchase)'
+- 'L3 (Hunt)'
+- 'L3 (Purchase)'
+- 'L4 (Hunt)'
+- 'L4 (Purchase)'
+- 'L5 (Hunt)'
+- 'L5 (Purchase)'
+- 'Last Hunt Time'
+- 'Name': string;
+- 'Points (Hunt)'
+- 'Points (Purchase)'
+- 'Purchase'
+- 'Total'
+- 'User ID'
+
 ## 🥊 Code quality
 
 -   [simple-git-hooks](https://www.npmjs.com/package/simple-git-hooks) — a tool that lets you easily manage git hooks.
@@ -24,7 +48,10 @@
 -   `feat!: breaking change` / `feat(scope)!: rework API`
 -   `chore(deps): update dependencies`
 
-### Commit types
+## 🗂 Commit convention
+
+
+## 📚 Commit types
 
 -   `build`: Changes that affect the build system or external dependencies (example scopes: gulp, broccoli, npm)
 -   `ci`: Changes to CI configuration files and scripts (example scopes: Travis, Circle, BrowserStack, SauceLabs)
