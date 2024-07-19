@@ -6,7 +6,7 @@ import { getPercentValue } from '../../helpers';
 
 import styles from './userStats.module.scss';
 
-import avatar from '../../../assets/avatar.png';
+import avatar from '../../assets/avatar.png';
 
 interface UserStatsProps {
     data: ExcelUser[] | null;

@@ -9,27 +9,27 @@
 
 ## 📃 Allowed column names in Excel structure:
 
-- 'First Hunt Time'
-- 'Goal Percentage (Hunt)'
-- 'Goal Percentage (Purchase)'
-- 'Hunt'
-- 'L1 (Hunt)'
-- 'L1 (Purchase)'
-- 'L2 (Hunt)'
-- 'L2 (Purchase)'
-- 'L3 (Hunt)'
-- 'L3 (Purchase)'
-- 'L4 (Hunt)'
-- 'L4 (Purchase)'
-- 'L5 (Hunt)'
-- 'L5 (Purchase)'
-- 'Last Hunt Time'
-- 'Name': string;
-- 'Points (Hunt)'
-- 'Points (Purchase)'
-- 'Purchase'
-- 'Total'
-- 'User ID'
+-   'First Hunt Time'
+-   'Goal Percentage (Hunt)'
+-   'Goal Percentage (Purchase)'
+-   'Hunt'
+-   'L1 (Hunt)'
+-   'L1 (Purchase)'
+-   'L2 (Hunt)'
+-   'L2 (Purchase)'
+-   'L3 (Hunt)'
+-   'L3 (Purchase)'
+-   'L4 (Hunt)'
+-   'L4 (Purchase)'
+-   'L5 (Hunt)'
+-   'L5 (Purchase)'
+-   'Last Hunt Time'
+-   'Name': string;
+-   'Points (Hunt)'
+-   'Points (Purchase)'
+-   'Purchase'
+-   'Total'
+-   'User ID'
 
 ## 🥊 Code quality
 
@@ -49,7 +49,6 @@
 -   `chore(deps): update dependencies`
 
 ## 🗂 Commit convention
-
 
 ## 📚 Commit types
 
