@@ -1,7 +1,8 @@
 import { Dispatch, FC, SetStateAction, useRef, useState } from 'react';
 import * as XLSX from 'xlsx';
 
-import { ExcelUser, ValidColumns } from '../../constants';
+import { ExcelUser, ValidColumns, ValidColumnsEnum } from '../../constants';
+import { excelDateToDate } from '../../helpers/excelNumToDate';
 
 import styles from './uploadFile.module.scss';
 
@@ -22,14 +23,21 @@ export const UploadFile: FC<UploadFileProps> = ({ setData }) => {
                 const workbook = XLSX.read(data, { type: 'binary' });
                 const sheetName = workbook.SheetNames[0];
                 const worksheet = workbook.Sheets[sheetName];
+                const json: ExcelUser[] = XLSX.utils.sheet_to_json(worksheet);
                 const areColumnsValid = validateColumns(worksheet);
                 if (!areColumnsValid) {
                     setFile(null);
                     setError('The file is missing columns');
                 } else {
-                    const json: ExcelUser[] =
-                        XLSX.utils.sheet_to_json(worksheet);
-                    setData(json);
+                    const areRowsValid = validateRows(json);
+                    if (!areRowsValid.valid) {
+                        setFile(null);
+                        setError(
+                            `The file has invalid value at col[${areRowsValid.col}] row[${areRowsValid.row + 1}]`,
+                        );
+                    } else {
+                        setData(json);
+                    }
                 }
             }
         };
@@ -50,6 +58,60 @@ export const UploadFile: FC<UploadFileProps> = ({ setData }) => {
         }
 
         return ValidColumns.every((c) => headers.includes(c));
+    };
+
+    const validateRows = (
+        users: ExcelUser[],
+    ): { valid: boolean; row: number; col: string } => {
+        const result = {
+            valid: true,
+            row: 0,
+            col: '',
+        };
+
+        users.forEach((u, index) => {
+            ValidColumns.forEach((c) => {
+                if (c === ValidColumnsEnum.UserID) {
+                    if (typeof u[c] !== 'number' || u[c] > 9999999999) {
+                        result.valid = false;
+                        result.row = index;
+                        result.col = c;
+                    }
+                } else if (c === ValidColumnsEnum.Name) {
+                    if (typeof u[c] !== 'string' || u[c].length > 12) {
+                        result.valid = false;
+                        result.row = index;
+                        result.col = c;
+                    }
+                } else if (c === ValidColumnsEnum.FirstHuntTime) {
+                    if (
+                        typeof u[c] !== 'number' ||
+                        Number.isNaN(excelDateToDate(u[c]))
+                    ) {
+                        result.valid = false;
+                        result.row = index;
+                        result.col = c;
+                    }
+                } else if (c === ValidColumnsEnum.LastHuntTime) {
+                    if (
+                        typeof u[c] !== 'number' ||
+                        Number.isNaN(excelDateToDate(u[c]))
+                    ) {
+                        result.valid = false;
+                        result.row = index;
+                        result.col = c;
+                    }
+                } else {
+                    if (typeof u[c] !== 'number' || u[c] > 1000000) {
+                        result.valid = false;
+                        result.row = index;
+                        result.col = c;
+                    }
+                }
+            });
+        });
+
+        return result;
     };
 
     const validateAndParseFile = (file: File) => {
