@@ -1,0 +1,27 @@
+.buttons {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding-bottom: 40px;
+}
+
+.usersList {
+    display: flex;
+    flex-direction: column;
+    align-items: start;
+    padding-bottom: 40px;
+}
+
+.line {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding-bottom: 40px;
+}
+
+.column {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 10px;
+}

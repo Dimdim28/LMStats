@@ -1,0 +1,86 @@
+.line {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
+}
+
+.column {
+    display: flex;
+    flex-direction: column;
+    align-items: start;
+    gap: 10px;
+}
+
+.user {
+    display: flex;
+    justify-content: center;
+    padding: 20px 0;
+
+    .column {
+        justify-content: center;
+        gap: 8px;
+    }
+
+    img {
+        flex-shrink: 0;
+        width: 103px;
+        height: 103px;
+        margin-right: 20px;
+    }
+
+    .name,
+    .id {
+        margin-right: 10px;
+        font-weight: 600;
+        font-size: 30px;
+        line-height: 1;
+    }
+
+    .name {
+        color: var(--color-yellow);
+    }
+
+    .id {
+        color: var(--color-white);
+
+        span {
+            color: var(--color-yellow);
+        }
+    }
+}
+
+.progressWrapper {
+    width: 180px;
+    height: 180px;
+}
+
+.activities {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    margin-bottom: 20px;
+}
+
+.hunt {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    margin-bottom: 20px;
+}
+
+.purchase {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    padding-bottom: 30px;
+}
+
+.copyIcon {
+    width: 30px;
+    height: 45px;
+}
+
+.copyIcon:hover {
+    cursor: pointer;
+}
