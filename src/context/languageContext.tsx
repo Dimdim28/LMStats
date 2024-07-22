@@ -1,6 +1,6 @@
 import { createContext, ReactNode, useState } from 'react';
 
-import { Language } from '../types/language';
+import { Language } from '../enums/language';
 
 type LanguageContextType = {
     language: Language;
@@ -13,7 +13,7 @@ type LanguageProviderProps = {
     children: ReactNode;
 };
 const LanguageProvider = ({ children }: LanguageProviderProps) => {
-    const [language, setLanguage] = useState<Language>('en');
+    const [language, setLanguage] = useState<Language>(Language.EN);
 
     const setNewLanguage = (lang: Language) => {
         setLanguage(lang);

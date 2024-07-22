@@ -1,4 +1,5 @@
 import { Dispatch, FC, SetStateAction } from 'react';
+import { useTranslation } from 'react-i18next';
 import clsx from 'clsx';
 
 import { Button } from '../../components/button/button';
@@ -16,12 +17,13 @@ export const Header: FC<HeaderProps> = ({
     currentStep,
     hidden,
 }) => {
+    const { t } = useTranslation();
     return (
         <header className={clsx(styles.header, { [styles.hidden]: hidden })}>
             <div className="container line">
                 <Button
                     isHighlited={currentStep === 'user'}
-                    text="User`s stats"
+                    text={t('userStats')}
                     onClick={() => {
                         setCurrentStep('user');
                     }}
@@ -29,7 +31,7 @@ export const Header: FC<HeaderProps> = ({
                 />
                 <Button
                     isHighlited={currentStep === 'guild'}
-                    text="Guild stats"
+                    text={t('guildStats')}
                     onClick={() => {
                         setCurrentStep('guild');
                     }}

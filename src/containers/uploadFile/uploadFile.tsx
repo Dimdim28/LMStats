@@ -1,4 +1,5 @@
 import { Dispatch, FC, SetStateAction, useRef, useState } from 'react';
+import { useTranslation } from 'react-i18next';
 import * as XLSX from 'xlsx';
 
 import { ExcelUser } from '../../constants';
@@ -13,6 +14,8 @@ export const UploadFile: FC<UploadFileProps> = ({ setData }) => {
     const [, setFile] = useState<File | null>(null);
     const [error, setError] = useState<string | null>(null);
     const fileInputRef = useRef<HTMLInputElement | null>(null);
+
+    const { t } = useTranslation();
 
     const parseExcel = (file: File) => {
         const reader = new FileReader();
@@ -142,9 +145,7 @@ export const UploadFile: FC<UploadFileProps> = ({ setData }) => {
                         y="170"
                     ></rect>
                 </svg>
-                <p className={styles.text}>
-                    Click here and choose your file or drag and drop it here
-                </p>
+                <p className={styles.text}>{t('uploadFile')}</p>
                 {error && <p className={styles.error}>{error}</p>}
             </div>
         </div>

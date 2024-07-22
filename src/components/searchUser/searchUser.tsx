@@ -1,4 +1,5 @@
 import { FC, useEffect, useState } from 'react';
+import { useTranslation } from 'react-i18next';
 
 import { sanitizeString, useDebounce } from '../../helpers';
 
@@ -12,6 +13,8 @@ export const SearchUser: FC<SearchUserProps> = ({ callback }) => {
     const [text, setText] = useState('');
 
     const debouncedText = useDebounce(text, 300);
+
+    const { t } = useTranslation();
 
     useEffect(() => {
         callback(debouncedText);
@@ -29,7 +32,7 @@ export const SearchUser: FC<SearchUserProps> = ({ callback }) => {
                 type="text"
                 value={text}
                 onChange={handleChange}
-                placeholder="Search user..."
+                placeholder={t('userSearch')}
                 className={styles.searchInput}
             />
         </div>

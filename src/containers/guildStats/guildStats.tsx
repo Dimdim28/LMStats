@@ -1,4 +1,5 @@
 import { FC, useState } from 'react';
+import { useTranslation } from 'react-i18next';
 
 import { Button, Checkbox, SearchUser, UserLine } from '../../components';
 import { ExcelUser, SortingTabType } from '../../constants';
@@ -24,6 +25,8 @@ export const GuildStats: FC<GuildStatsProps> = ({ data, onClickUser }) => {
     const [fullInfoToCopy, setFullInfoToCopy] = useState(false);
     const [searchText, setSearchText] = useState('');
 
+    const { t } = useTranslation();
+
     const sortedData = getSortedData(
         filterUsersByName(data, searchText),
         activeTab,
@@ -40,7 +43,7 @@ export const GuildStats: FC<GuildStatsProps> = ({ data, onClickUser }) => {
                     onClick={() => {
                         setActiveTab('Hunt');
                     }}
-                    text="Hunt"
+                    text={t('hunt')}
                 />
                 <Button
                     buttonClass={
@@ -49,7 +52,7 @@ export const GuildStats: FC<GuildStatsProps> = ({ data, onClickUser }) => {
                     onClick={() => {
                         setActiveTab('Purchase');
                     }}
-                    text="Purchase"
+                    text={t('purchase')}
                 />
                 <Button
                     buttonClass={
@@ -58,7 +61,7 @@ export const GuildStats: FC<GuildStatsProps> = ({ data, onClickUser }) => {
                     onClick={() => {
                         setActiveTab('All');
                     }}
-                    text="All"
+                    text={t('all')}
                 />
             </div>
             <div className={styles.usersList}>
@@ -84,12 +87,12 @@ export const GuildStats: FC<GuildStatsProps> = ({ data, onClickUser }) => {
                             );
                         }}
                         buttonClass="buttonRed"
-                        text={`Copy falied ${activeTab.toLowerCase()} users`}
+                        text={t('copyUser')}
                     />
                     <Checkbox
                         isActive={fullInfoToCopy}
                         setIsActive={setFullInfoToCopy}
-                        text="Display percent of completion"
+                        text={t('presentageCheckbox')}
                     />
                 </div>
             </div>
