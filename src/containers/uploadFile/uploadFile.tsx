@@ -1,7 +1,7 @@
 import { Dispatch, FC, SetStateAction, useRef, useState } from 'react';
 import * as XLSX from 'xlsx';
 
-import { ExcelUser } from '../../constants';
+import { ExcelUser, ValidColumns } from '../../constants';
 
 import styles from './uploadFile.module.scss';
 
@@ -22,11 +22,34 @@ export const UploadFile: FC<UploadFileProps> = ({ setData }) => {
                 const workbook = XLSX.read(data, { type: 'binary' });
                 const sheetName = workbook.SheetNames[0];
                 const worksheet = workbook.Sheets[sheetName];
-                const json: ExcelUser[] = XLSX.utils.sheet_to_json(worksheet);
-                setData(json);
+                const areColumnsValid = validateColumns(worksheet);
+                if (!areColumnsValid) {
+                    setFile(null);
+                    setError('The file is missing columns');
+                } else {
+                    const json: ExcelUser[] =
+                        XLSX.utils.sheet_to_json(worksheet);
+                    setData(json);
+                }
             }
         };
         reader.readAsBinaryString(file);
+    };
+
+    const validateColumns = (worksheet: XLSX.WorkSheet): boolean => {
+        const range: XLSX.Range = XLSX.utils.decode_range(
+            worksheet['!ref'] as string,
+        );
+        const headers: string[] = [];
+
+        for (let col = range.s.c; col <= range.e.c; col++) {
+            const cellAddress: XLSX.CellAddress = { c: col, r: range.s.r };
+            const cellRef: string = XLSX.utils.encode_cell(cellAddress);
+            const cell: XLSX.CellObject = worksheet[cellRef] as XLSX.CellObject;
+            headers.push(cell ? (cell.v as string) : ' ');
+        }
+
+        return ValidColumns.every((c) => headers.includes(c));
     };
 
     const validateAndParseFile = (file: File) => {
