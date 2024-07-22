@@ -79,8 +79,10 @@
 .copyIcon {
     width: 30px;
     height: 45px;
+    fill: var(--color-yellow);
 }
 
 .copyIcon:hover {
     cursor: pointer;
+    fill: var(--color-red);
 }
