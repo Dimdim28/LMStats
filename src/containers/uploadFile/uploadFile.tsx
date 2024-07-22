@@ -33,7 +33,7 @@ export const UploadFile: FC<UploadFileProps> = ({ setData }) => {
                     if (!areRowsValid.valid) {
                         setFile(null);
                         setError(
-                            `The file has invalid value at col[${areRowsValid.col}] row[${areRowsValid.row + 1}]`,
+                            `The file has invalid value at col[${areRowsValid.col}] row[${areRowsValid.row + 2}]`,
                         );
                     } else {
                         setData(json);
@@ -69,47 +69,39 @@ export const UploadFile: FC<UploadFileProps> = ({ setData }) => {
             col: '',
         };
 
-        users.forEach((u, index) => {
-            ValidColumns.forEach((c) => {
-                if (c === ValidColumnsEnum.UserID) {
-                    if (typeof u[c] !== 'number' || u[c] > 9999999999) {
-                        result.valid = false;
-                        result.row = index;
-                        result.col = c;
-                    }
-                } else if (c === ValidColumnsEnum.Name) {
-                    if (typeof u[c] !== 'string' || u[c].length > 12) {
-                        result.valid = false;
-                        result.row = index;
-                        result.col = c;
-                    }
-                } else if (c === ValidColumnsEnum.FirstHuntTime) {
-                    if (
-                        typeof u[c] !== 'number' ||
-                        Number.isNaN(excelDateToDate(u[c]))
-                    ) {
-                        result.valid = false;
-                        result.row = index;
-                        result.col = c;
-                    }
-                } else if (c === ValidColumnsEnum.LastHuntTime) {
-                    if (
-                        typeof u[c] !== 'number' ||
-                        Number.isNaN(excelDateToDate(u[c]))
-                    ) {
-                        result.valid = false;
-                        result.row = index;
-                        result.col = c;
-                    }
-                } else {
-                    if (typeof u[c] !== 'number' || u[c] > 1000000) {
-                        result.valid = false;
-                        result.row = index;
-                        result.col = c;
-                    }
+        for (let index = 0; index < users.length; index++) {
+            const user = users[index];
+
+            for (let i = 0; i < ValidColumns.length; i++) {
+                const column = ValidColumns[i];
+                const value = user[column as keyof ExcelUser];
+
+                if (
+                    (column === ValidColumnsEnum.UserID &&
+                        (typeof value !== 'number' || value > 9999999999)) ||
+                    (column === ValidColumnsEnum.Name &&
+                        (typeof value !== 'string' || value.length > 12)) ||
+                    (column === ValidColumnsEnum.FirstHuntTime &&
+                        (typeof value !== 'number' ||
+                            Number.isNaN(excelDateToDate(value)))) ||
+                    (column === ValidColumnsEnum.LastHuntTime &&
+                        (typeof value !== 'number' ||
+                            Number.isNaN(excelDateToDate(value)))) ||
+                    (column !== ValidColumnsEnum.UserID &&
+                        column !== ValidColumnsEnum.Name &&
+                        column !== ValidColumnsEnum.FirstHuntTime &&
+                        column !== ValidColumnsEnum.LastHuntTime &&
+                        (typeof value !== 'number' || value > 1000000))
+                ) {
+                    result.valid = false;
+                    result.row = index;
+                    result.col = column;
+                    break;
                 }
-            });
-        });
+            }
+
+            if (!result.valid) break;
+        }
 
         return result;
     };
