@@ -1,10 +1,21 @@
 import { useEffect, useRef, useState } from 'react';
+import { initReactI18next } from 'react-i18next';
+import i18next from 'i18next';
 
 import { GuildStats, UploadFile, UserStats } from './containers/';
 import { Header } from './containers/header/header';
+import { Language } from './enums/language';
 import { ExcelUser, Step } from './constants';
+import TRANSLATIONS from './languages';
 
 import './styles/index.scss';
+
+void i18next.use(initReactI18next).init({
+    lng: localStorage.getItem('lang') || Language.RU,
+    debug: true,
+    resources: TRANSLATIONS,
+    fallbackLng: 'en',
+});
 
 const App = () => {
     const [currentStep, setCurrentStep] = useState<Step>('upload');

@@ -1,7 +1,9 @@
 import { FC, useState } from 'react';
+import { useTranslation } from 'react-i18next';
 
 import { Button, Checkbox, SearchUser, UserLine } from '../../components';
 import { ExcelUser, SortingTabType } from '../../constants';
+import { I18n } from '../../enums/i18n-text';
 import {
     copyText,
     filterUsersByName,
@@ -24,6 +26,8 @@ export const GuildStats: FC<GuildStatsProps> = ({ data, onClickUser }) => {
     const [fullInfoToCopy, setFullInfoToCopy] = useState(false);
     const [searchText, setSearchText] = useState('');
 
+    const { t } = useTranslation();
+
     const sortedData = getSortedData(
         filterUsersByName(data, searchText),
         activeTab,
@@ -40,7 +44,7 @@ export const GuildStats: FC<GuildStatsProps> = ({ data, onClickUser }) => {
                     onClick={() => {
                         setActiveTab('Hunt');
                     }}
-                    text="Hunt"
+                    text={t(I18n.HUNT)}
                 />
                 <Button
                     buttonClass={
@@ -49,7 +53,7 @@ export const GuildStats: FC<GuildStatsProps> = ({ data, onClickUser }) => {
                     onClick={() => {
                         setActiveTab('Purchase');
                     }}
-                    text="Purchase"
+                    text={t(I18n.PURCHASE)}
                 />
                 <Button
                     buttonClass={
@@ -58,7 +62,7 @@ export const GuildStats: FC<GuildStatsProps> = ({ data, onClickUser }) => {
                     onClick={() => {
                         setActiveTab('All');
                     }}
-                    text="All"
+                    text={t(I18n.ALL)}
                 />
             </div>
             <div className={styles.usersList}>
@@ -84,12 +88,12 @@ export const GuildStats: FC<GuildStatsProps> = ({ data, onClickUser }) => {
                             );
                         }}
                         buttonClass="buttonRed"
-                        text={`Copy falied ${activeTab.toLowerCase()} users`}
+                        text={t(I18n.COPY_USER)}
                     />
                     <Checkbox
                         isActive={fullInfoToCopy}
                         setIsActive={setFullInfoToCopy}
-                        text="Display percent of completion"
+                        text={t(I18n.PERSENTAGE_CHECKBOX)}
                     />
                 </div>
             </div>
