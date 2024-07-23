@@ -71,11 +71,7 @@ const App = () => {
 
     return (
         <>
-            <Header
-                hidden={false}
-                setCurrentStep={setCurrentStep}
-                currentStep={currentStep}
-            />
+            <Header setCurrentStep={setCurrentStep} currentStep={currentStep} />
             <main
                 ref={scrollableContainerRef}
                 className={!data || !activeUser ? 'hidden' : undefined}

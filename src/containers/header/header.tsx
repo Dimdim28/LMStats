@@ -1,5 +1,3 @@
-/* eslint-disable jsx-a11y/no-static-element-interactions */
-/* eslint-disable jsx-a11y/click-events-have-key-events */
 import { Dispatch, FC, SetStateAction } from 'react';
 import { useTranslation } from 'react-i18next';
 import clsx from 'clsx';
@@ -15,16 +13,11 @@ import styles from './header.module.scss';
 interface HeaderProps {
     setCurrentStep: Dispatch<SetStateAction<Step>>;
     currentStep: Step;
-    hidden: boolean;
 }
-export const Header: FC<HeaderProps> = ({
-    hidden,
-    setCurrentStep,
-    currentStep,
-}) => {
+export const Header: FC<HeaderProps> = ({ setCurrentStep, currentStep }) => {
     const { t } = useTranslation();
     return (
-        <header className={clsx(styles.header, { [styles.hidden]: hidden })}>
+        <header className={clsx(styles.header)}>
             <div className="container line">
                 {currentStep === 'user' ? (
                     <div onClick={() => setCurrentStep('guild')}>
