@@ -1,5 +1,6 @@
 import { FC } from 'react';
 
+import CopyIcon from '../../assets/copy-icon';
 import { Line, Progress, Title } from '../../components';
 import { ExcelUser } from '../../constants';
 import { getPercentValue } from '../../helpers';
@@ -48,10 +49,22 @@ export const UserStats: FC<UserStatsProps> = ({ data, user }) => {
             <div className={styles.user}>
                 <img alt="avatar" src={avatar} width={103} height={103} />
                 <div className={styles.column}>
-                    <p className={styles.name}> {Name}</p>
-                    <p className={styles.id}>
-                        ID: <span>{id}</span>
-                    </p>
+                    <div className={styles.line}>
+                        <p className={styles.name}> {Name}</p>
+                        <CopyIcon
+                            className={styles.copyIcon}
+                            copyValue={Name}
+                        />
+                    </div>
+                    <div className={styles.line}>
+                        <p className={styles.id}>
+                            ID: <span>{id}</span>
+                        </p>
+                        <CopyIcon
+                            className={styles.copyIcon}
+                            copyValue={id.toString()}
+                        />
+                    </div>
                 </div>
             </div>
             <div className={styles.activities}>

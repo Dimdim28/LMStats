@@ -2,6 +2,7 @@
     display: flex;
     justify-content: space-between;
     align-items: center;
+    width: 100%;
 }
 
 .column {
@@ -30,6 +31,7 @@
 
     .name,
     .id {
+        margin-right: 10px;
         font-weight: 600;
         font-size: 30px;
         line-height: 1;
@@ -72,4 +74,16 @@
     flex-direction: column;
     gap: 10px;
     padding-bottom: 30px;
+}
+
+.copyIcon {
+    width: 30px;
+    height: 45px;
+    fill: var(--color-yellow);
+    transition: 0.3s ease;
+}
+
+.copyIcon:hover {
+    cursor: pointer;
+    fill: var(--color-red);
 }

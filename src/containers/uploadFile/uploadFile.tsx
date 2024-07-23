@@ -1,7 +1,8 @@
 import { Dispatch, FC, SetStateAction, useRef, useState } from 'react';
 import * as XLSX from 'xlsx';
 
-import { ExcelUser } from '../../constants';
+import { ExcelUser, ValidColumns, ValidColumnsEnum } from '../../constants';
+import { excelDateToDate } from '../../helpers/excelNumToDate';
 
 import styles from './uploadFile.module.scss';
 
@@ -23,10 +24,86 @@ export const UploadFile: FC<UploadFileProps> = ({ setData }) => {
                 const sheetName = workbook.SheetNames[0];
                 const worksheet = workbook.Sheets[sheetName];
                 const json: ExcelUser[] = XLSX.utils.sheet_to_json(worksheet);
-                setData(json);
+                const areColumnsValid = validateColumns(worksheet);
+                if (!areColumnsValid) {
+                    setFile(null);
+                    setError('The file is missing columns');
+                } else {
+                    const areRowsValid = validateRows(json);
+                    if (!areRowsValid.valid) {
+                        setFile(null);
+                        setError(
+                            `The file has invalid value at col[${areRowsValid.col}] row[${areRowsValid.row + 2}]`,
+                        );
+                    } else {
+                        setData(json);
+                    }
+                }
             }
         };
         reader.readAsBinaryString(file);
+    };
+
+    const validateColumns = (worksheet: XLSX.WorkSheet): boolean => {
+        const range: XLSX.Range = XLSX.utils.decode_range(
+            worksheet['!ref'] as string,
+        );
+        const headers: string[] = [];
+
+        for (let col = range.s.c; col <= range.e.c; col++) {
+            const cellAddress: XLSX.CellAddress = { c: col, r: range.s.r };
+            const cellRef: string = XLSX.utils.encode_cell(cellAddress);
+            const cell: XLSX.CellObject = worksheet[cellRef] as XLSX.CellObject;
+            headers.push(cell ? (cell.v as string) : ' ');
+        }
+
+        return ValidColumns.every((c) => headers.includes(c));
+    };
+
+    const validateRows = (
+        users: ExcelUser[],
+    ): { valid: boolean; row: number; col: string } => {
+        const result = {
+            valid: true,
+            row: 0,
+            col: '',
+        };
+
+        for (let index = 0; index < users.length; index++) {
+            const user = users[index];
+
+            for (let i = 0; i < ValidColumns.length; i++) {
+                const column = ValidColumns[i];
+                const value = user[column as keyof ExcelUser];
+
+                if (
+                    (column === ValidColumnsEnum.UserID &&
+                        (typeof value !== 'number' || value > 9999999999)) ||
+                    (column === ValidColumnsEnum.Name &&
+                        (typeof value !== 'string' || value.length > 12)) ||
+                    (column === ValidColumnsEnum.FirstHuntTime &&
+                        (typeof value !== 'number' ||
+                            Number.isNaN(excelDateToDate(value)))) ||
+                    (column === ValidColumnsEnum.LastHuntTime &&
+                        (typeof value !== 'number' ||
+                            Number.isNaN(excelDateToDate(value)))) ||
+                    (column !== ValidColumnsEnum.UserID &&
+                        column !== ValidColumnsEnum.Name &&
+                        column !== ValidColumnsEnum.FirstHuntTime &&
+                        column !== ValidColumnsEnum.LastHuntTime &&
+                        (typeof value !== 'number' || value > 1000000))
+                ) {
+                    result.valid = false;
+                    result.row = index;
+                    result.col = column;
+                    break;
+                }
+            }
+
+            if (!result.valid) break;
+        }
+
+        return result;
     };
 
     const validateAndParseFile = (file: File) => {

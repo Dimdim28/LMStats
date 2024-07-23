@@ -48,8 +48,6 @@
 -   `feat!: breaking change` / `feat(scope)!: rework API`
 -   `chore(deps): update dependencies`
 
-## 🗂 Commit convention
-
 ## 📚 Commit types
 
 -   `build`: Changes that affect the build system or external dependencies (example scopes: gulp, broccoli, npm)
