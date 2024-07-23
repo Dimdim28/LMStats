@@ -1,6 +1,7 @@
 import { FC } from 'react';
 import { useTranslation } from 'react-i18next';
 
+import CopyIcon from '../../assets/copy-icon';
 import { Line, Progress, Title } from '../../components';
 import { ExcelUser } from '../../constants';
 import { I18n } from '../../enums/i18n-text';
@@ -51,10 +52,22 @@ export const UserStats: FC<UserStatsProps> = ({ data, user }) => {
             <div className={styles.user}>
                 <img alt="avatar" src={avatar} width={103} height={103} />
                 <div className={styles.column}>
-                    <p className={styles.name}> {Name}</p>
-                    <p className={styles.id}>
-                        ID: <span>{id}</span>
-                    </p>
+                    <div className={styles.line}>
+                        <p className={styles.name}> {Name}</p>
+                        <CopyIcon
+                            className={styles.copyIcon}
+                            copyValue={Name}
+                        />
+                    </div>
+                    <div className={styles.line}>
+                        <p className={styles.id}>
+                            ID: <span>{id}</span>
+                        </p>
+                        <CopyIcon
+                            className={styles.copyIcon}
+                            copyValue={id.toString()}
+                        />
+                    </div>
                 </div>
             </div>
             <div className={styles.activities}>
