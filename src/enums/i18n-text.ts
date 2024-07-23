@@ -4,6 +4,7 @@ export enum I18n {
     HUNT = 'hunt',
     PURCHASE = 'purchase',
     ALL = 'all',
+    BACK = 'back',
     TOTAL = 'total',
     COPY_USER = 'copy_user',
     PERSENTAGE_CHECKBOX = 'persentage checkbox',

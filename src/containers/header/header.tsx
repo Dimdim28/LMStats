@@ -1,8 +1,12 @@
+/* eslint-disable jsx-a11y/no-static-element-interactions */
+/* eslint-disable jsx-a11y/click-events-have-key-events */
 import { Dispatch, FC, SetStateAction } from 'react';
 import { useTranslation } from 'react-i18next';
 import clsx from 'clsx';
 
-import { Button } from '../../components/button/button';
+import { Title } from '../../components';
+import InfoIcon from '../../components/info-icon/infoIcon';
+import LanguageToggler from '../../components/language-toggler/languageToggler';
 import { Step } from '../../constants';
 import { I18n } from '../../enums/i18n-text';
 
@@ -14,30 +18,26 @@ interface HeaderProps {
     hidden: boolean;
 }
 export const Header: FC<HeaderProps> = ({
+    hidden,
     setCurrentStep,
     currentStep,
-    hidden,
 }) => {
     const { t } = useTranslation();
     return (
         <header className={clsx(styles.header, { [styles.hidden]: hidden })}>
             <div className="container line">
-                <Button
-                    isHighlited={currentStep === 'user'}
-                    text={t(I18n.USER_STATS)}
-                    onClick={() => {
-                        setCurrentStep('user');
-                    }}
-                    buttonClass="buttonBlue"
-                />
-                <Button
-                    isHighlited={currentStep === 'guild'}
-                    text={t(I18n.GUILD_STATS)}
-                    onClick={() => {
-                        setCurrentStep('guild');
-                    }}
-                    buttonClass="buttonBlue"
-                />
+                {currentStep === 'user' ? (
+                    <div onClick={() => setCurrentStep('guild')}>
+                        <Title title={`< ${t(I18n.BACK)}`} />
+                    </div>
+                ) : (
+                    <Title title="LMstats" />
+                )}
+
+                <div className={styles.header__actionContainer}>
+                    <LanguageToggler className={styles.header__toggler} />
+                    <InfoIcon onClick={() => {}} />
+                </div>
             </div>
         </header>
     );

@@ -1,23 +1,34 @@
 import { createContext, ReactNode, useState } from 'react';
+import { useTranslation } from 'react-i18next';
 
 import { Language } from '../enums/language';
+import { LocalStorageKey } from '../enums/storage';
+import { setStorageLanguage } from '../helpers/setLanguage';
 
-type LanguageContextType = {
+export type LanguageContextType = {
     language: Language;
-    setLanguage: (lang: Language) => void;
+    setLanguage: () => void;
 };
 
-const LanguageContext = createContext<LanguageContextType | null>(null);
+export const LanguageContext = createContext<LanguageContextType | null>(null);
 
 type LanguageProviderProps = {
     children: ReactNode;
 };
 const LanguageProvider = ({ children }: LanguageProviderProps) => {
-    const [language, setLanguage] = useState<Language>(Language.EN);
+    const [language, setLanguage] = useState<Language>(
+        (localStorage.getItem(LocalStorageKey.LANG) as Language) || Language.EN,
+    );
+    const { i18n } = useTranslation();
 
-    const setNewLanguage = (lang: Language) => {
-        setLanguage(lang);
+    const setNewLanguage = () => {
+        const newLang = language === Language.EN ? Language.RU : Language.EN;
+
+        setLanguage(newLang);
+        setStorageLanguage(newLang);
+        void i18n.changeLanguage(newLang);
     };
+
     return (
         <LanguageContext.Provider
             value={{ language, setLanguage: setNewLanguage }}

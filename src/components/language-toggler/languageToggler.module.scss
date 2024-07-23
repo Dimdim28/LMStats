@@ -1,0 +1,9 @@
+@import "../../styles/variables";
+
+.toggler {
+    color: var(--color-header-gold);
+    font-weight: 700;
+    font-size: 24px;
+    cursor: pointer;
+    user-select: none;
+}

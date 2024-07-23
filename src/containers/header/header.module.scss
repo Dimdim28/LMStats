@@ -11,6 +11,16 @@
     box-shadow: 0 4px 4px rgb(from var(--color-black) r g b / 25%);
     transition: all 0.3s;
 
+    &__toggler {
+        margin-bottom: -5px;
+    }
+
+    &__actionContainer {
+        display: flex;
+        align-items: center;
+        gap: 18px;
+    }
+
     &.hidden {
         height: 0;
         padding: 0;

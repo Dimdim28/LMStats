@@ -16,6 +16,7 @@ const EN = {
     [I18n.TOTAL_POINTS]: 'Total points',
     [I18n.USER_STATS]: 'User`s stats',
     [I18n.GUILD_STATS]: 'Guild stats',
+    [I18n.BACK]: 'Back',
     [I18n.L1]: 'L1',
     [I18n.L2]: 'L2',
     [I18n.L3]: 'L3',

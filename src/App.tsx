@@ -5,13 +5,15 @@ import i18next from 'i18next';
 import { GuildStats, UploadFile, UserStats } from './containers/';
 import { Header } from './containers/header/header';
 import { Language } from './enums/language';
+import { LocalStorageKey } from './enums/storage';
+import { initLanguage } from './helpers/initLanguage';
 import { ExcelUser, Step } from './constants';
 import TRANSLATIONS from './languages';
 
 import './styles/index.scss';
 
 void i18next.use(initReactI18next).init({
-    lng: localStorage.getItem('lang') || Language.RU,
+    lng: localStorage.getItem(LocalStorageKey.LANG) || Language.RU,
     debug: true,
     resources: TRANSLATIONS,
     fallbackLng: 'en',
@@ -43,6 +45,7 @@ const App = () => {
     useEffect(() => {
         window.addEventListener('resize', appHeight);
         window.addEventListener('load', appHeight);
+        initLanguage();
         appHeight();
     }, []);
 
@@ -69,7 +72,7 @@ const App = () => {
     return (
         <>
             <Header
-                hidden={!data || !activeUser}
+                hidden={false}
                 setCurrentStep={setCurrentStep}
                 currentStep={currentStep}
             />
