@@ -1,0 +1,16 @@
+export enum I18n {
+    UPLOAD_FILE = 'upload_file',
+    USER_SEARCH = 'user_search',
+    HUNT = 'hunt',
+    PURCHASE = 'purchase',
+    ALL = 'all',
+    TOTAL = 'total',
+    COPY_USER = 'copy_user',
+    PERSENTAGE_CHECKBOX = 'persentage checkbox',
+    USER_ACTIVITY = 'user_activity',
+    HUNT_STATS = 'hunt_stats',
+    PURCHASE_STATS = 'purchase_stats',
+    TOTAL_POINTS = 'total_points',
+    USER_STATS = 'user_stats',
+    GUILD_STATS = 'guild_stats',
+}

@@ -4,6 +4,7 @@ import clsx from 'clsx';
 
 import { Button } from '../../components/button/button';
 import { Step } from '../../constants';
+import { I18n } from '../../enums/i18n-text';
 
 import styles from './header.module.scss';
 
@@ -23,7 +24,7 @@ export const Header: FC<HeaderProps> = ({
             <div className="container line">
                 <Button
                     isHighlited={currentStep === 'user'}
-                    text={t('userStats')}
+                    text={t(I18n.USER_STATS)}
                     onClick={() => {
                         setCurrentStep('user');
                     }}
@@ -31,7 +32,7 @@ export const Header: FC<HeaderProps> = ({
                 />
                 <Button
                     isHighlited={currentStep === 'guild'}
-                    text={t('guildStats')}
+                    text={t(I18n.GUILD_STATS)}
                     onClick={() => {
                         setCurrentStep('guild');
                     }}

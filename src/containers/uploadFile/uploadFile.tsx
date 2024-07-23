@@ -3,6 +3,7 @@ import { useTranslation } from 'react-i18next';
 import * as XLSX from 'xlsx';
 
 import { ExcelUser } from '../../constants';
+import { I18n } from '../../enums/i18n-text';
 
 import styles from './uploadFile.module.scss';
 
@@ -145,7 +146,7 @@ export const UploadFile: FC<UploadFileProps> = ({ setData }) => {
                         y="170"
                     ></rect>
                 </svg>
-                <p className={styles.text}>{t('uploadFile')}</p>
+                <p className={styles.text}>{t(I18n.UPLOAD_FILE)}</p>
                 {error && <p className={styles.error}>{error}</p>}
             </div>
         </div>

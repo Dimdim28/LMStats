@@ -3,6 +3,7 @@ import { useTranslation } from 'react-i18next';
 
 import { Line, Progress, Title } from '../../components';
 import { ExcelUser } from '../../constants';
+import { I18n } from '../../enums/i18n-text';
 import { getPercentValue } from '../../helpers';
 
 import styles from './userStats.module.scss';
@@ -57,15 +58,15 @@ export const UserStats: FC<UserStatsProps> = ({ data, user }) => {
                 </div>
             </div>
             <div className={styles.activities}>
-                <Title title={t('userActivity')} />
+                <Title title={t(I18n.USER_ACTIVITY)} />
                 <div className={styles.line}>
-                    <Line text={t('total')} value={`${Total}`} />
-                    <Line text={t('hunt')} value={`${Hunt}`} />
-                    <Line text={t('purchase')} value={`${Purchase}`} />
+                    <Line text={t(I18n.TOTAL)} value={`${Total}`} />
+                    <Line text={t(I18n.HUNT)} value={`${Hunt}`} />
+                    <Line text={t(I18n.PURCHASE)} value={`${Purchase}`} />
                 </div>
             </div>
             <div className={styles.hunt}>
-                <Title title={t('huntStats')} />
+                <Title title={t(I18n.HUNT_STATS)} />
                 <div className={styles.line}>
                     <div className={styles.column}>
                         <Line text="L1" value={`${l1hunt}`} />
@@ -73,7 +74,10 @@ export const UserStats: FC<UserStatsProps> = ({ data, user }) => {
                         <Line text="L3" value={`${l3hunt}`} />
                         <Line text="L4" value={`${l4hunt}`} />
                         <Line text="L5" value={`${l5hunt}`} />
-                        <Line text={t('totalPoints')} value={`${pointsHunt}`} />
+                        <Line
+                            text={t(I18n.TOTAL_POINTS)}
+                            value={`${pointsHunt}`}
+                        />
                     </div>
                     <div className={styles.progressWrapper}>
                         <Progress value={getPercentValue(goalHunt)} />
@@ -81,7 +85,7 @@ export const UserStats: FC<UserStatsProps> = ({ data, user }) => {
                 </div>
             </div>
             <div className={styles.purchase}>
-                <Title title={t('purchaseStats')} />
+                <Title title={t(I18n.PURCHASE_STATS)} />
                 <div className={styles.line}>
                     <div className={styles.column}>
                         <Line text="L1" value={`${l1purch}`} />
@@ -90,7 +94,7 @@ export const UserStats: FC<UserStatsProps> = ({ data, user }) => {
                         <Line text="L4" value={`${l4purch}`} />
                         <Line text="L5" value={`${l5purch}`} />
                         <Line
-                            text={t('totalPoints')}
+                            text={t(I18n.TOTAL_POINTS)}
                             value={`${pointsPurchase}`}
                         />
                     </div>

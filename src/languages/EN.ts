@@ -1,18 +1,21 @@
+import { I18n } from '../enums/i18n-text';
+
 const EN = {
-    uploadFile: 'Click here and choose your file or drag and drop it here',
-    userSearch: 'Search user...',
-    hunt: 'Hunt',
-    purchase: 'Purchase',
-    all: 'All',
-    total: 'Total',
-    copyUser: 'Copy all failed users',
-    presentageCheckbox: 'Display percent of completion',
-    userActivity: 'Activities amount',
-    huntStats: 'Hunt stats',
-    purchaseStats: 'Purchase stats',
-    totalPoints: 'Total points',
-    userStats: 'User`s stats',
-    guildStats: 'Guild stats',
+    [I18n.UPLOAD_FILE]:
+        'Click here and choose your file or drag and drop it here',
+    [I18n.USER_SEARCH]: 'Search user...',
+    [I18n.HUNT]: 'Hunt',
+    [I18n.PURCHASE]: 'Purchase',
+    [I18n.ALL]: 'All',
+    [I18n.TOTAL]: 'Total',
+    [I18n.COPY_USER]: 'Copy all failed users',
+    [I18n.PERSENTAGE_CHECKBOX]: 'Display percent of completion',
+    [I18n.USER_ACTIVITY]: 'Activities amount',
+    [I18n.HUNT_STATS]: 'Hunt stats',
+    [I18n.PURCHASE_STATS]: 'Purchase stats',
+    [I18n.TOTAL_POINTS]: 'Total points',
+    [I18n.USER_STATS]: 'User`s stats',
+    [I18n.GUILD_STATS]: 'Guild stats',
 };
 
 export default EN;
