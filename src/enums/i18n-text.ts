@@ -13,4 +13,9 @@ export enum I18n {
     TOTAL_POINTS = 'total_points',
     USER_STATS = 'user_stats',
     GUILD_STATS = 'guild_stats',
+    L1 = 'l1',
+    L2 = 'l2',
+    L3 = 'l3',
+    L4 = 'l4',
+    L5 = 'l5',
 }

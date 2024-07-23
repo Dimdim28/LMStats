@@ -82,11 +82,11 @@ export const UserStats: FC<UserStatsProps> = ({ data, user }) => {
                 <Title title={t(I18n.HUNT_STATS)} />
                 <div className={styles.line}>
                     <div className={styles.column}>
-                        <Line text="L1" value={`${l1hunt}`} />
-                        <Line text="L2" value={`${l2hunt}`} />
-                        <Line text="L3" value={`${l3hunt}`} />
-                        <Line text="L4" value={`${l4hunt}`} />
-                        <Line text="L5" value={`${l5hunt}`} />
+                        <Line text={t(I18n.L1)} value={`${l1hunt}`} />
+                        <Line text={t(I18n.L2)} value={`${l2hunt}`} />
+                        <Line text={t(I18n.L3)} value={`${l3hunt}`} />
+                        <Line text={t(I18n.L4)} value={`${l4hunt}`} />
+                        <Line text={t(I18n.L5)} value={`${l5hunt}`} />
                         <Line
                             text={t(I18n.TOTAL_POINTS)}
                             value={`${pointsHunt}`}
@@ -101,11 +101,11 @@ export const UserStats: FC<UserStatsProps> = ({ data, user }) => {
                 <Title title={t(I18n.PURCHASE_STATS)} />
                 <div className={styles.line}>
                     <div className={styles.column}>
-                        <Line text="L1" value={`${l1purch}`} />
-                        <Line text="L2" value={`${l2purch}`} />
-                        <Line text="L3" value={`${l3purch}`} />
-                        <Line text="L4" value={`${l4purch}`} />
-                        <Line text="L5" value={`${l5purch}`} />
+                        <Line text={t(I18n.L1)} value={`${l1purch}`} />
+                        <Line text={t(I18n.L2)} value={`${l2purch}`} />
+                        <Line text={t(I18n.L3)} value={`${l3purch}`} />
+                        <Line text={t(I18n.L4)} value={`${l4purch}`} />
+                        <Line text={t(I18n.L5)} value={`${l5purch}`} />
                         <Line
                             text={t(I18n.TOTAL_POINTS)}
                             value={`${pointsPurchase}`}
