@@ -1,4 +1,4 @@
-import { FC, useState } from 'react';
+import { FC } from 'react';
 import clsx from 'clsx';
 
 import styles from './infoIcon.module.scss';
@@ -14,12 +14,9 @@ const InfoIcon: FC<InfoIconProps> = ({
     onClick,
     className = '',
 }) => {
-    const [isHovered, setIsHovered] = useState(false);
     return (
         <svg
             className={clsx(styles.icon, className)}
-            onMouseEnter={() => setIsHovered(true)}
-            onMouseLeave={() => setIsHovered(false)}
             onClick={onClick}
             width={`${width}`}
             height={`${height}`}
@@ -28,12 +25,7 @@ const InfoIcon: FC<InfoIconProps> = ({
             xmlns="http://www.w3.org/2000/svg"
         >
             <g clipPath="url(#clip0_120_2)">
-                <circle
-                    cx="12"
-                    cy="12"
-                    r="12"
-                    fill={isHovered ? 'red' : '#DCA006'}
-                />
+                <circle cx="12" cy="12" r="12" />
                 <rect
                     x="10"
                     y="10"

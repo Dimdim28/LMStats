@@ -6,4 +6,9 @@
     font-size: 24px;
     cursor: pointer;
     user-select: none;
+    transition: 0.3s;
+
+    &:hover {
+        color: var(--color-smoke);
+    }
 }
