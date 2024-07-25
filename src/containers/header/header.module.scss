@@ -11,6 +11,15 @@
     box-shadow: 0 4px 4px rgb(from var(--color-black) r g b / 25%);
     transition: all 0.3s;
 
+    &__title {
+        cursor: pointer;
+        transition: all 0.3s;
+
+        &:hover {
+            color: var(--color-white);
+        }
+    }
+
     &__toggler {
         margin-bottom: -5px;
     }
