@@ -22,4 +22,12 @@ export enum I18n {
     L3 = 'l3',
     L4 = 'l4',
     L5 = 'l5',
+    ABOUT_WEBSITE = 'about_website',
+    ABOUT_CREATOR = 'about_creator',
+    FUTURE_OF_THE_PROJECT = 'future_of_the_project',
+    LINKS = 'links',
+    ABOUT_WEBSITE_TEXT = 'about_website_text',
+    ABOUT_CREATOR_TEXT = 'about_creator_text',
+    FUTURE_OF_THE_PROJECT_TEXT = 'future_of_the_project_text',
+    LINKS_TEXT = 'links_text',
 }
