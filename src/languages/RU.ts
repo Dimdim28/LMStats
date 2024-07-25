@@ -1,7 +1,7 @@
 import { I18n } from '../enums/i18n-text';
 
 const RU = {
-    [I18n.UPLOAD_FILE]: 'Выберите или перетащите файл .xlsx',
+    [I18n.UPLOAD_FILE]: 'Нажмите и выберите или перетащите файл .xlsx',
     [I18n.USER_SEARCH]: 'Поиск пользователя...',
     [I18n.HUNT]: 'Охота',
     [I18n.PURCHASE]: 'Покупки',
