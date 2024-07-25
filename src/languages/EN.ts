@@ -29,23 +29,27 @@ const EN = {
     [I18n.ABOUT_CREATOR]: 'About creator',
     [I18n.FUTURE_OF_THE_PROJECT]: 'Future of the project',
     [I18n.LINKS]: 'Links',
-    [I18n.ABOUT_WEBSITE_TEXT]: `Upload your excel file on <span>LMStats</span> and see your 
+    [I18n.ABOUT_WEBSITE_TEXT]: `
+        Upload your excel file on <span>LMStats</span> and see your 
         and your guild friends scores. You can copy list of users who failed hunt, 
-        purchase or both of them with or without percentage of completion.`,
-    [I18n.ABOUT_CREATOR_TEXT]: ` <span>ZloyHomyak13</span> - my nickname in Lords Mobile, 
-            you can contact me if you have questions, ideas how to improve website or you faced bugs here, 
-            I will fix them as soon as possible.`,
+        purchase or both of them with or without percentage of completion.
+    `,
+    [I18n.ABOUT_CREATOR_TEXT]: `
+        <span>ZloyHomyak13</span> - my nickname in Lords Mobile, 
+        you can contact me if you have questions, ideas how to improve website or you faced bugs here, 
+        I will fix them as soon as possible.
+    `,
     [I18n.FUTURE_OF_THE_PROJECT_TEXT]: `
-            I am going to create server and add  accounts system. 
-            Your guild leader or officers will be able to create guild and accept your join request 
-            and <span>only them</span> will have opportunity to upload files with statistic, all of guild members will see their stats <span>without uploading file</span> oh their own. 
-            If this project will be popular, I will think about additional features like analyzing data for few months with comfortable charts.
+        I am going to create server and add  accounts system. 
+        Your guild leader or officers will be able to create guild and accept your join request 
+        and <span>only them</span> will have opportunity to upload files with statistic, all of guild members will see their stats <span>without uploading file</span> oh their own. 
+        If this project will be popular, I will think about additional features like analyzing data for few months with comfortable charts.
     `,
     [I18n.LINKS_TEXT]: `
-            <p>Source code:</p>
-            <a href='https://github.com/Dimdim28/LMStats'>https://github.com/Dimdim28/LMStats</a>
-            <p>My Github profile:</p>
-            <a href='https://github.com/Dimdim28'>https://github.com/Dimdim28</a>
+        <p>Source code:</p>
+        <a href='https://github.com/Dimdim28/LMStats'>https://github.com/Dimdim28/LMStats</a>
+        <p>My Github profile:</p>
+        <a href='https://github.com/Dimdim28'>https://github.com/Dimdim28</a>
     `,
 };
 export default EN;
