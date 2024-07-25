@@ -15,7 +15,7 @@ import TRANSLATIONS from './languages';
 import './styles/index.scss';
 
 void i18next.use(initReactI18next).init({
-    lng: localStorage.getItem(LocalStorageKey.LANG) || Language.RU,
+    lng: localStorage.getItem(LocalStorageKey.LANG) || Language.EN,
     debug: true,
     resources: TRANSLATIONS,
     fallbackLng: 'en',
