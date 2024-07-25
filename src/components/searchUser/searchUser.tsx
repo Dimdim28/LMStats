@@ -1,5 +1,7 @@
 import { FC, useEffect, useState } from 'react';
+import { useTranslation } from 'react-i18next';
 
+import { I18n } from '../../enums/i18n-text';
 import { sanitizeString, useDebounce } from '../../helpers';
 
 import styles from './searchUser.module.scss';
@@ -12,6 +14,8 @@ export const SearchUser: FC<SearchUserProps> = ({ callback }) => {
     const [text, setText] = useState('');
 
     const debouncedText = useDebounce(text, 300);
+
+    const { t } = useTranslation();
 
     useEffect(() => {
         callback(debouncedText);
@@ -29,7 +33,7 @@ export const SearchUser: FC<SearchUserProps> = ({ callback }) => {
                 type="text"
                 value={text}
                 onChange={handleChange}
-                placeholder="Search user..."
+                placeholder={t(I18n.USER_SEARCH)}
                 className={styles.searchInput}
             />
         </div>

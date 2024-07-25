@@ -23,9 +23,11 @@
     },
     "dependencies": {
         "clsx": "^2.1.1",
+        "i18next": "^23.12.2",
         "js-cookie": "^3.0.5",
         "react": "^18.2.0",
         "react-dom": "^18.2.0",
+        "react-i18next": "^15.0.0",
         "xlsx": "^0.18.5"
     },
     "devDependencies": {

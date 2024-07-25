@@ -1,0 +1,11 @@
+@import "../../styles//variables";
+
+.icon {
+    cursor: pointer;
+    fill: var(--color-header-gold);
+    transition: 0.3s;
+
+    &:hover {
+        fill: var(--color-smoke);
+    }
+}

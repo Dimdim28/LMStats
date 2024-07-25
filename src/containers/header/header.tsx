@@ -1,40 +1,58 @@
 import { Dispatch, FC, SetStateAction } from 'react';
+import { useTranslation } from 'react-i18next';
 import clsx from 'clsx';
 
-import { Button } from '../../components/button/button';
-import { Step } from '../../constants';
+import { Title } from '../../components';
+import CrossIcon from '../../components/crossIcon/crossIcon';
+import InfoIcon from '../../components/info-icon/infoIcon';
+import LanguageToggler from '../../components/language-toggler/languageToggler';
+import { ExcelUser, Step } from '../../constants';
+import { I18n } from '../../enums/i18n-text';
 
 import styles from './header.module.scss';
 
 interface HeaderProps {
     setCurrentStep: Dispatch<SetStateAction<Step>>;
+    data: ExcelUser[] | null;
     currentStep: Step;
-    hidden: boolean;
 }
 export const Header: FC<HeaderProps> = ({
-    setCurrentStep,
+    data,
     currentStep,
-    hidden,
+    setCurrentStep,
 }) => {
+    const { t } = useTranslation();
+
+    const handleGoBakc = () => {
+        data ? setCurrentStep('guild') : setCurrentStep('upload');
+    };
     return (
-        <header className={clsx(styles.header, { [styles.hidden]: hidden })}>
+        <header className={clsx(styles.header)}>
             <div className="container line">
-                <Button
-                    isHighlited={currentStep === 'user'}
-                    text="User`s stats"
-                    onClick={() => {
-                        setCurrentStep('user');
-                    }}
-                    buttonClass="buttonBlue"
-                />
-                <Button
-                    isHighlited={currentStep === 'guild'}
-                    text="Guild stats"
-                    onClick={() => {
-                        setCurrentStep('guild');
-                    }}
-                    buttonClass="buttonBlue"
-                />
+                {currentStep === 'user' ? (
+                    <div onClick={() => setCurrentStep('guild')}>
+                        <Title
+                            className={styles.header__title}
+                            title={`< ${t(I18n.BACK)}`}
+                        />
+                    </div>
+                ) : (
+                    <div onClick={handleGoBakc}>
+                        <Title
+                            className={styles.header__title}
+                            title="LMstats"
+                        />
+                    </div>
+                )}
+
+                <div className={styles.header__actionContainer}>
+                    <LanguageToggler className={styles.header__toggler} />
+                    {currentStep === 'info' ? (
+                        <CrossIcon onClick={handleGoBakc} />
+                    ) : (
+                        <InfoIcon onClick={() => setCurrentStep('info')} />
+                    )}
+                </div>
             </div>
         </header>
     );

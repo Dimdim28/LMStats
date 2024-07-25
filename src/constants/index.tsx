@@ -1,4 +1,4 @@
-export type Step = 'user' | 'guild' | 'upload';
+export type Step = 'user' | 'guild' | 'upload' | 'info';
 export type ExcelUser = {
     ' ': '';
     ' _1': '';

@@ -1,8 +1,10 @@
 import { FC } from 'react';
+import { useTranslation } from 'react-i18next';
 
 import CopyIcon from '../../assets/copy-icon';
 import { Line, Progress, Title } from '../../components';
 import { ExcelUser } from '../../constants';
+import { I18n } from '../../enums/i18n-text';
 import { getPercentValue } from '../../helpers';
 
 import styles from './userStats.module.scss';
@@ -15,6 +17,7 @@ interface UserStatsProps {
 }
 
 export const UserStats: FC<UserStatsProps> = ({ data, user }) => {
+    const { t } = useTranslation();
     if (!data || !user) {
         return <div>Error</div>;
     }
@@ -68,23 +71,26 @@ export const UserStats: FC<UserStatsProps> = ({ data, user }) => {
                 </div>
             </div>
             <div className={styles.activities}>
-                <Title title="Activities amount:" />
+                <Title title={t(I18n.USER_ACTIVITY)} />
                 <div className={styles.line}>
-                    <Line text="Total" value={`${Total}`} />
-                    <Line text="Hunt" value={`${Hunt}`} />
-                    <Line text="Purchase" value={`${Purchase}`} />
+                    <Line text={t(I18n.TOTAL)} value={`${Total}`} />
+                    <Line text={t(I18n.HUNT)} value={`${Hunt}`} />
+                    <Line text={t(I18n.PURCHASE)} value={`${Purchase}`} />
                 </div>
             </div>
             <div className={styles.hunt}>
-                <Title title="Hunt stats" />
+                <Title title={t(I18n.HUNT_STATS)} />
                 <div className={styles.line}>
                     <div className={styles.column}>
-                        <Line text="L1" value={`${l1hunt}`} />
-                        <Line text="L2" value={`${l2hunt}`} />
-                        <Line text="L3" value={`${l3hunt}`} />
-                        <Line text="L4" value={`${l4hunt}`} />
-                        <Line text="L5" value={`${l5hunt}`} />
-                        <Line text="Total points" value={`${pointsHunt}`} />
+                        <Line text={t(I18n.L1)} value={`${l1hunt}`} />
+                        <Line text={t(I18n.L2)} value={`${l2hunt}`} />
+                        <Line text={t(I18n.L3)} value={`${l3hunt}`} />
+                        <Line text={t(I18n.L4)} value={`${l4hunt}`} />
+                        <Line text={t(I18n.L5)} value={`${l5hunt}`} />
+                        <Line
+                            text={t(I18n.TOTAL_POINTS)}
+                            value={`${pointsHunt}`}
+                        />
                     </div>
                     <div className={styles.progressWrapper}>
                         <Progress value={getPercentValue(goalHunt)} />
@@ -92,15 +98,18 @@ export const UserStats: FC<UserStatsProps> = ({ data, user }) => {
                 </div>
             </div>
             <div className={styles.purchase}>
-                <Title title="Purchase stats" />
+                <Title title={t(I18n.PURCHASE_STATS)} />
                 <div className={styles.line}>
                     <div className={styles.column}>
-                        <Line text="L1" value={`${l1purch}`} />
-                        <Line text="L2" value={`${l2purch}`} />
-                        <Line text="L3" value={`${l3purch}`} />
-                        <Line text="L4" value={`${l4purch}`} />
-                        <Line text="L5" value={`${l5purch}`} />
-                        <Line text="Total points" value={`${pointsPurchase}`} />
+                        <Line text={t(I18n.L1)} value={`${l1purch}`} />
+                        <Line text={t(I18n.L2)} value={`${l2purch}`} />
+                        <Line text={t(I18n.L3)} value={`${l3purch}`} />
+                        <Line text={t(I18n.L4)} value={`${l4purch}`} />
+                        <Line text={t(I18n.L5)} value={`${l5purch}`} />
+                        <Line
+                            text={t(I18n.TOTAL_POINTS)}
+                            value={`${pointsPurchase}`}
+                        />
                     </div>
                     <div className={styles.progressWrapper}>
                         <Progress value={getPercentValue(goalPurch)} />
