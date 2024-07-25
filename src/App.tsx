@@ -63,11 +63,9 @@ const infoPageData: InfoData[] = [
         description: {
             __html: `
             <p>Source code:</p>
-            <link href='https://github.com/Dimdim28/LMStats'>https://github.com/Dimdim28/LMStats</link>
-            <br/>
-            <br/>
+            <a href='https://github.com/Dimdim28/LMStats'>https://github.com/Dimdim28/LMStats</a>
             <p>My profile:</p>
-            <link href='https://github.com/Dimdim28'>https://github.com/Dimdim28</link>
+            <a href='https://github.com/Dimdim28'>https://github.com/Dimdim28</a>
         `,
         },
     },

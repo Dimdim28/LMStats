@@ -1,0 +1,42 @@
+@import "../../styles/variables";
+
+.info {
+    display: flex;
+    flex-direction: column;
+    gap: 17px;
+    max-width: 625px;
+    margin: 0 auto;
+    padding: 12px 0 0;
+}
+
+.title {
+    margin: 0 0 7px;
+    color: var(--color-header-gold);
+    font-weight: 700;
+    font-size: 20px;
+    font-family: Rubik, sans-serif;
+    text-transform: uppercase;
+}
+
+.description {
+    color: var(--color-white);
+    font-weight: 600;
+    font-size: 16px;
+    font-family: Inter, sans-serif;
+
+    span,
+    p {
+        color: var(--color-yellow);
+        font-weight: 700;
+    }
+
+    a {
+        display: block;
+        margin: 0 0 26px;
+        text-decoration: underline;
+
+        &:hover {
+            color: rgb(216 220 255);
+        }
+    }
+}
