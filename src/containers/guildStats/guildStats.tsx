@@ -28,6 +28,15 @@ export const GuildStats: FC<GuildStatsProps> = ({ data, onClickUser }) => {
 
     const { t } = useTranslation();
 
+    const failedSubject =
+        activeTab === 'Hunt'
+            ? t(I18n.FAILED_HUNT)
+            : activeTab === 'All'
+              ? t(I18n.ALL)
+              : t(I18n.PURCHASE);
+
+    const copyButtonText = `${t(I18n.COPY)} ${t(I18n.USERS)} ${t(I18n.FAILED)} ${failedSubject}`;
+
     const sortedData = getSortedData(
         filterUsersByName(data, searchText),
         activeTab,
@@ -88,7 +97,7 @@ export const GuildStats: FC<GuildStatsProps> = ({ data, onClickUser }) => {
                             );
                         }}
                         buttonClass="buttonRed"
-                        text={t(I18n.COPY_USER)}
+                        text={copyButtonText}
                     />
                     <Checkbox
                         isActive={fullInfoToCopy}

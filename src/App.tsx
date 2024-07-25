@@ -4,9 +4,11 @@ import i18next from 'i18next';
 
 import { GuildStats, UploadFile, UserStats } from './containers/';
 import { Header } from './containers/header/header';
+import Info from './containers/info/info';
 import { Language } from './enums/language';
 import { LocalStorageKey } from './enums/storage';
 import { initLanguage } from './helpers/initLanguage';
+import useInfoPageData from './hooks/useInfoPageData';
 import { ExcelUser, Step } from './constants';
 import TRANSLATIONS from './languages';
 
@@ -25,6 +27,8 @@ const App = () => {
     const [activeUser, setActiveUser] = useState<string | null>(null);
 
     const scrollableContainerRef = useRef<HTMLDivElement>(null);
+
+    const infoPageData = useInfoPageData();
 
     useEffect(() => {
         if (!data) {
@@ -71,7 +75,12 @@ const App = () => {
 
     return (
         <>
-            <Header setCurrentStep={setCurrentStep} currentStep={currentStep} />
+            <Header
+                setCurrentStep={setCurrentStep}
+                data={data}
+                currentStep={currentStep}
+            />
+
             <main
                 ref={scrollableContainerRef}
                 className={!data || !activeUser ? 'hidden' : undefined}
@@ -86,6 +95,7 @@ const App = () => {
                     {currentStep === 'guild' && (
                         <GuildStats data={data} onClickUser={handleUserClick} />
                     )}
+                    {currentStep === 'info' && <Info data={infoPageData} />}
                 </div>
             </main>
         </>
