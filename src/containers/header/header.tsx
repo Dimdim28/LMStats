@@ -31,10 +31,18 @@ export const Header: FC<HeaderProps> = ({
             <div className="container line">
                 {currentStep === 'user' ? (
                     <div onClick={() => setCurrentStep('guild')}>
-                        <Title title={`< ${t(I18n.BACK)}`} />
+                        <Title
+                            className={styles.header__title}
+                            title={`< ${t(I18n.BACK)}`}
+                        />
                     </div>
                 ) : (
-                    <Title title="LMstats" />
+                    <div onClick={handleGoBakc}>
+                        <Title
+                            className={styles.header__title}
+                            title="LMstats"
+                        />
+                    </div>
                 )}
 
                 <div className={styles.header__actionContainer}>

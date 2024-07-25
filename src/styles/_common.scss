@@ -7,23 +7,21 @@ main {
     display: flex;
     flex-direction: column;
     gap: 20px;
-    height: calc(100% - 84px);
+    height: calc(100% - 54px);
     padding: 20px;
     overflow-y: auto;
 
     @media screen and (width <= 425px) {
         gap: 10px;
-        height: calc(100% - 70px);
         padding: 15px;
     }
 
     @media screen and (width <= 375px) {
-        height: calc(100% - 60px);
         padding: 10px;
     }
 
     &.hidden {
-        height: 100%;
+        height: calc(100% - 54px);
     }
 }
 

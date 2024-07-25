@@ -15,6 +15,7 @@
     font-weight: 700;
     font-size: 20px;
     font-family: Rubik, sans-serif;
+    line-height: 24px;
     text-transform: uppercase;
 }
 
@@ -22,7 +23,9 @@
     color: var(--color-white);
     font-weight: 600;
     font-size: 16px;
-    font-family: Inter, sans-serif;
+    font-family: Roboto, sans-serif;
+    line-height: 20px;
+    text-align: justify;
 
     span,
     p {
@@ -36,7 +39,7 @@
         text-decoration: underline;
 
         &:hover {
-            color: rgb(216 220 255);
+            color: var(--color-yellow);
         }
     }
 }

@@ -47,9 +47,9 @@ const EN = {
     `,
     [I18n.LINKS_TEXT]: `
         <p>Source code:</p>
-        <a href='https://github.com/Dimdim28/LMStats'>https://github.com/Dimdim28/LMStats</a>
+        <a target="_blank" href='https://github.com/Dimdim28/LMStats'>https://github.com/Dimdim28/LMStats</a>
         <p>My Github profile:</p>
-        <a href='https://github.com/Dimdim28'>https://github.com/Dimdim28</a>
+        <a target="_blank" href='https://github.com/Dimdim28'>https://github.com/Dimdim28</a>
     `,
 };
 export default EN;
