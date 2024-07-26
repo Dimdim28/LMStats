@@ -12,7 +12,7 @@ interface UploadFileProps {
     setData: Dispatch<SetStateAction<ExcelUser[] | null>>;
 }
 
-export const UploadFile: FC<UploadFileProps> = ({ setData }) => {
+const UploadFile: FC<UploadFileProps> = ({ setData }) => {
     const [, setFile] = useState<File | null>(null);
     const [error, setError] = useState<string | null>(null);
     const fileInputRef = useRef<HTMLInputElement | null>(null);
@@ -228,3 +228,5 @@ export const UploadFile: FC<UploadFileProps> = ({ setData }) => {
         </div>
     );
 };
+
+export default UploadFile;
