@@ -1,16 +1,19 @@
-import { useEffect, useRef, useState } from 'react';
+import { lazy, Suspense, useEffect, useRef, useState } from 'react';
 import { initReactI18next } from 'react-i18next';
 import i18next from 'i18next';
 
-import { GuildStats, UploadFile, UserStats } from './containers/';
 import { Header } from './containers/header/header';
-import Info from './containers/info/info';
 import { Language } from './enums/language';
 import { LocalStorageKey } from './enums/storage';
 import { initLanguage } from './helpers/initLanguage';
 import useInfoPageData from './hooks/useInfoPageData';
 import { ExcelUser, Step } from './constants';
 import TRANSLATIONS from './languages';
+
+const GuildStats = lazy(() => import('./containers/guildStats/guildStats'));
+const UploadFile = lazy(() => import('./containers/uploadFile/uploadFile'));
+const UserStats = lazy(() => import('./containers/userStats/userStats'));
+const Info = lazy(() => import('./containers/info/info'));
 
 import './styles/index.scss';
 
@@ -86,16 +89,21 @@ const App = () => {
                 className={!data || !activeUser ? 'hidden' : undefined}
             >
                 <div className="container ">
-                    {currentStep === 'upload' && (
-                        <UploadFile setData={setData} />
-                    )}
-                    {currentStep === 'user' && (
-                        <UserStats data={data} user={activeUser} />
-                    )}
-                    {currentStep === 'guild' && (
-                        <GuildStats data={data} onClickUser={handleUserClick} />
-                    )}
-                    {currentStep === 'info' && <Info data={infoPageData} />}
+                    <Suspense fallback={<div>Loading...</div>}>
+                        {currentStep === 'upload' && (
+                            <UploadFile setData={setData} />
+                        )}
+                        {currentStep === 'user' && (
+                            <UserStats data={data} user={activeUser} />
+                        )}
+                        {currentStep === 'guild' && (
+                            <GuildStats
+                                data={data}
+                                onClickUser={handleUserClick}
+                            />
+                        )}
+                        {currentStep === 'info' && <Info data={infoPageData} />}
+                    </Suspense>
                 </div>
             </main>
         </>

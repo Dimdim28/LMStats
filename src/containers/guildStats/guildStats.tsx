@@ -21,7 +21,7 @@ interface GuildStatsProps {
     onClickUser: (userName: string) => void;
 }
 
-export const GuildStats: FC<GuildStatsProps> = ({ data, onClickUser }) => {
+const GuildStats: FC<GuildStatsProps> = ({ data, onClickUser }) => {
     const [activeTab, setActiveTab] = useState<SortingTabType>('Hunt');
     const [fullInfoToCopy, setFullInfoToCopy] = useState(false);
     const [searchText, setSearchText] = useState('');
@@ -109,3 +109,5 @@ export const GuildStats: FC<GuildStatsProps> = ({ data, onClickUser }) => {
         </div>
     );
 };
+
+export default GuildStats;

@@ -16,7 +16,7 @@ interface UserStatsProps {
     user: string | null;
 }
 
-export const UserStats: FC<UserStatsProps> = ({ data, user }) => {
+const UserStats: FC<UserStatsProps> = ({ data, user }) => {
     const { t } = useTranslation();
     if (!data || !user) {
         return <div>Error</div>;
@@ -119,3 +119,5 @@ export const UserStats: FC<UserStatsProps> = ({ data, user }) => {
         </>
     );
 };
+
+export default UserStats;
