@@ -15,6 +15,8 @@ const UploadFile = lazy(() => import('./containers/uploadFile/uploadFile'));
 const UserStats = lazy(() => import('./containers/userStats/userStats'));
 const Info = lazy(() => import('./containers/info/info'));
 
+import { Preloader } from './components';
+
 import './styles/index.scss';
 
 void use(initReactI18next).init({
@@ -89,7 +91,7 @@ const App = () => {
                 className={!data || !activeUser ? 'hidden' : undefined}
             >
                 <div className="container ">
-                    <Suspense fallback={<div>Loading...</div>}>
+                    <Suspense fallback={<Preloader />}>
                         {currentStep === 'upload' && (
                             <UploadFile setData={setData} />
                         )}
