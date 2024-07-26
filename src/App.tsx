@@ -1,6 +1,6 @@
 import { lazy, Suspense, useEffect, useRef, useState } from 'react';
 import { initReactI18next } from 'react-i18next';
-import i18next from 'i18next';
+import { use } from 'i18next';
 
 import { Header } from './containers/header/header';
 import { Language } from './enums/language';
@@ -15,9 +15,11 @@ const UploadFile = lazy(() => import('./containers/uploadFile/uploadFile'));
 const UserStats = lazy(() => import('./containers/userStats/userStats'));
 const Info = lazy(() => import('./containers/info/info'));
 
+import { Preloader } from './components';
+
 import './styles/index.scss';
 
-void i18next.use(initReactI18next).init({
+void use(initReactI18next).init({
     lng: localStorage.getItem(LocalStorageKey.LANG) || Language.EN,
     debug: true,
     resources: TRANSLATIONS,
@@ -89,7 +91,7 @@ const App = () => {
                 className={!data || !activeUser ? 'hidden' : undefined}
             >
                 <div className="container ">
-                    <Suspense fallback={<div>Loading...</div>}>
+                    <Suspense fallback={<Preloader />}>
                         {currentStep === 'upload' && (
                             <UploadFile setData={setData} />
                         )}
