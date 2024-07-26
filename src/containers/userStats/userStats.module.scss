@@ -48,6 +48,49 @@
             color: var(--color-yellow);
         }
     }
+
+    @media screen and (width <= 425px) {
+        img {
+            width: 80px;
+            height: 80px;
+            margin-right: 10px;
+        }
+
+        .column {
+            gap: 4px;
+
+            .line {
+                .name,
+                .id {
+                    font-size: 20px;
+                }
+            }
+        }
+
+        .copyIcon {
+            width: 20px;
+        }
+    }
+
+    @media screen and (width <= 375px) {
+        img {
+            width: 60px;
+            height: 60px;
+        }
+
+        .column {
+            .line {
+                .name,
+                .id {
+                    font-size: 18px;
+                }
+            }
+        }
+
+        .copyIcon {
+            width: 18px;
+        }
+    }
 }
 
 .progressWrapper {
@@ -78,7 +121,7 @@
 
 .copyIcon {
     width: 30px;
-    height: 45px;
+    height: 100%;
     fill: var(--color-yellow);
     transition: 0.3s ease;
 }
