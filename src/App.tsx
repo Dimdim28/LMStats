@@ -1,21 +1,23 @@
-import { lazy, Suspense, useEffect, useRef, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import { initReactI18next } from 'react-i18next';
 import { use } from 'i18next';
 
+import GuildStats from './containers/guildStats/guildStats';
 import { Header } from './containers/header/header';
+import Info from './containers/info/info';
+import UploadFile from './containers/uploadFile/uploadFile';
+import UserStats from './containers/userStats/userStats';
 import { Language } from './enums/language';
 import { LocalStorageKey } from './enums/storage';
 import { initLanguage } from './helpers/initLanguage';
 import useInfoPageData from './hooks/useInfoPageData';
+// const GuildStats = lazy(() => import('./containers/guildStats/guildStats'));
+// const UploadFile = lazy(() => import('./containers/uploadFile/uploadFile'));
+// const UserStats = lazy(() => import('./containers/userStats/userStats'));
+// const Info = lazy(() => import('./containers/info/info'));
+// import { Preloader } from './components';
 import { ExcelUser, Step } from './constants';
 import TRANSLATIONS from './languages';
-
-const GuildStats = lazy(() => import('./containers/guildStats/guildStats'));
-const UploadFile = lazy(() => import('./containers/uploadFile/uploadFile'));
-const UserStats = lazy(() => import('./containers/userStats/userStats'));
-const Info = lazy(() => import('./containers/info/info'));
-
-import { Preloader } from './components';
 
 import './styles/index.scss';
 
@@ -91,21 +93,18 @@ const App = () => {
                 className={!data || !activeUser ? 'hidden' : undefined}
             >
                 <div className="container ">
-                    <Suspense fallback={<Preloader />}>
-                        {currentStep === 'upload' && (
-                            <UploadFile setData={setData} />
-                        )}
-                        {currentStep === 'user' && (
-                            <UserStats data={data} user={activeUser} />
-                        )}
-                        {currentStep === 'guild' && (
-                            <GuildStats
-                                data={data}
-                                onClickUser={handleUserClick}
-                            />
-                        )}
-                        {currentStep === 'info' && <Info data={infoPageData} />}
-                    </Suspense>
+                    {/* <Suspense fallback={<Preloader />}> */}
+                    {currentStep === 'upload' && (
+                        <UploadFile setData={setData} />
+                    )}
+                    {currentStep === 'user' && (
+                        <UserStats data={data} user={activeUser} />
+                    )}
+                    {currentStep === 'guild' && (
+                        <GuildStats data={data} onClickUser={handleUserClick} />
+                    )}
+                    {currentStep === 'info' && <Info data={infoPageData} />}
+                    {/* </Suspense> */}
                 </div>
             </main>
         </>
