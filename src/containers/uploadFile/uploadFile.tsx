@@ -28,6 +28,45 @@ const UploadFile: FC<UploadFileProps> = ({ setData }) => {
                 const sheetName = workbook.SheetNames[0];
                 const worksheet = workbook.Sheets[sheetName];
                 const json: ExcelUser[] = XLSX.utils.sheet_to_json(worksheet);
+                const slicedJson = json; //.slice(4);
+                console.log(slicedJson);
+                console.log(
+                    Object.entries(slicedJson[0])
+                        .filter((el) => el[1].toString().trim().length === 0)
+                        .map((el) => el[0]),
+                );
+
+                const fixEmptyColumnNames = (
+                    excel: { [key: string]: string }[],
+                ) => {
+                    const firstRow = excel[0];
+                    const otherRows = excel.slice(1);
+
+                    // Create a mapping from the original keys to the new keys
+                    const keyMapping = Object.fromEntries(
+                        Object.entries(firstRow).map(([key, value]) => [
+                            key,
+                            value.trim(),
+                        ]),
+                    );
+
+                    // Replace keys in each row according to the mapping
+                    const fixedRows = otherRows.map((row) => {
+                        const newRow: { [key: string]: string } = {};
+                        for (const [key, value] of Object.entries(row)) {
+                            if (keyMapping[key]) {
+                                newRow[keyMapping[key]] = value;
+                            }
+                        }
+                        return newRow;
+                    });
+
+                    return fixedRows;
+                };
+
+                // eslint-disable-next-line @typescript-eslint/no-unsafe-argument, @typescript-eslint/no-explicit-any
+                console.log(fixEmptyColumnNames(slicedJson as any));
+
                 const areColumnsValid = validateColumns(worksheet);
                 if (!areColumnsValid) {
                     setFile(null);
@@ -40,7 +79,7 @@ const UploadFile: FC<UploadFileProps> = ({ setData }) => {
                             `The file has invalid value at col[${areRowsValid.col}] row[${areRowsValid.row + 2}]`,
                         );
                     } else {
-                        setData(json);
+                        setData(slicedJson);
                     }
                 }
             }
