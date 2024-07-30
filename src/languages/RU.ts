@@ -2,6 +2,8 @@ import { I18n } from '../enums/i18n-text';
 
 const RU = {
     [I18n.UPLOAD_FILE]: 'Нажмите и выберите или перетащите файл .xlsx',
+    [I18n.SELECT_LINE]: 'Выберите номер строки с заголовками ваших колонок',
+    [I18n.SELECT_COLUMNS]: 'Выберите названия оклонок',
     [I18n.USER_SEARCH]: 'Поиск пользователя...',
     [I18n.HUNT]: 'Охота',
     [I18n.PURCHASE]: 'Покупки',
