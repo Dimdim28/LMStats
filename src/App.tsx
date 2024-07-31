@@ -16,7 +16,7 @@ import useInfoPageData from './hooks/useInfoPageData';
 // const UserStats = lazy(() => import('./containers/userStats/userStats'));
 // const Info = lazy(() => import('./containers/info/info'));
 // import { Preloader } from './components';
-import { ExcelUser, Step } from './constants';
+import { ColumnNames, ExcelUser, Step } from './constants';
 import TRANSLATIONS from './languages';
 
 import './styles/index.scss';
@@ -32,6 +32,29 @@ const App = () => {
     const [currentStep, setCurrentStep] = useState<Step>('upload');
     const [data, setData] = useState<ExcelUser[] | null>(null);
     const [activeUser, setActiveUser] = useState<string | null>(null);
+    const [columnNames, setColumnNames] = useState<
+        Partial<Record<ColumnNames, string>>
+    >({
+        'UserID': '',
+        'Name': '',
+        'TotalActions': '',
+        'HuntActions': '',
+        'PurchActions': '',
+        'L1Hunt': '',
+        'L2Hunt': '',
+        'L3Hunt': '',
+        'L4Hunt': '',
+        'L5Hunt': '',
+        'L1Purch': '',
+        'L2Purch': '',
+        'L3Purch': '',
+        'L4Purch': '',
+        'L5Purch': '',
+        'HuntPoints': '',
+        'PurchsPoints': '',
+        'HuntCompletion': '',
+        'PurchCompletion': '',
+    });
 
     const scrollableContainerRef = useRef<HTMLDivElement>(null);
 
@@ -95,13 +118,24 @@ const App = () => {
                 <div className="container ">
                     {/* <Suspense fallback={<Preloader />}> */}
                     {currentStep === 'upload' && (
-                        <UploadFile setData={setData} />
+                        <UploadFile
+                            setData={setData}
+                            setColumnNames={setColumnNames}
+                        />
                     )}
                     {currentStep === 'user' && (
-                        <UserStats data={data} user={activeUser} />
+                        <UserStats
+                            data={data}
+                            user={activeUser}
+                            columnNames={columnNames}
+                        />
                     )}
                     {currentStep === 'guild' && (
-                        <GuildStats data={data} onClickUser={handleUserClick} />
+                        <GuildStats
+                            data={data}
+                            onClickUser={handleUserClick}
+                            columnNames={columnNames}
+                        />
                     )}
                     {currentStep === 'info' && <Info data={infoPageData} />}
                     {/* </Suspense> */}

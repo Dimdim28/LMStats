@@ -2,16 +2,16 @@ import { FC, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 
 import { Button, Checkbox, SearchUser, UserLine } from '../../components';
-import { ExcelUser, SortingTabType } from '../../constants';
+import { ColumnNames, ExcelUser, SortingTabType } from '../../constants';
 import { I18n } from '../../enums/i18n-text';
 import {
-    copyText,
+    // copyText,
     filterUsersByName,
-    getFailedUsersList,
+    // getFailedUsersList,
     getPercentValue,
     getSortedData,
     getStatValue,
-    stringifyFailersList,
+    // stringifyFailersList,
 } from '../../helpers';
 
 import styles from './guildStats.module.scss';
@@ -19,9 +19,14 @@ import styles from './guildStats.module.scss';
 interface GuildStatsProps {
     data: ExcelUser[] | null;
     onClickUser: (userName: string) => void;
+    columnNames: Partial<Record<ColumnNames, string>>;
 }
 
-const GuildStats: FC<GuildStatsProps> = ({ data, onClickUser }) => {
+const GuildStats: FC<GuildStatsProps> = ({
+    data,
+    onClickUser,
+    columnNames,
+}) => {
     const [activeTab, setActiveTab] = useState<SortingTabType>('Hunt');
     const [fullInfoToCopy, setFullInfoToCopy] = useState(false);
     const [searchText, setSearchText] = useState('');
@@ -38,9 +43,17 @@ const GuildStats: FC<GuildStatsProps> = ({ data, onClickUser }) => {
     const copyButtonText = `${t(I18n.COPY)} ${t(I18n.USERS)} ${t(I18n.FAILED)} ${failedSubject}`;
 
     const sortedData = getSortedData(
-        filterUsersByName(data, searchText),
+        filterUsersByName(data, searchText, columnNames.Name as string),
         activeTab,
     );
+
+    const areValueBiggerThan100 =
+        data?.some(
+            (el) =>
+                (el[columnNames['PurchCompletion'] as string] as number) >=
+                    100 ||
+                (el[columnNames['HuntCompletion'] as string] as number) >= 100,
+        ) || false;
 
     return (
         <div>
@@ -78,9 +91,21 @@ const GuildStats: FC<GuildStatsProps> = ({ data, onClickUser }) => {
                 {sortedData?.map((user, id) => (
                     <UserLine
                         key={id}
-                        name={user.Name}
-                        value={getPercentValue(getStatValue(user, activeTab))}
-                        onClick={() => onClickUser(user.Name)}
+                        name={user[columnNames['Name'] as string]}
+                        value={getPercentValue(
+                            getStatValue(
+                                user,
+                                activeTab,
+                                columnNames['PurchCompletion'] as string,
+                                columnNames['HuntCompletion'] as string,
+                                areValueBiggerThan100,
+                            ),
+                        )}
+                        onClick={() =>
+                            onClickUser(
+                                user[columnNames['Name'] as string] as string,
+                            )
+                        }
                     />
                 ))}
             </div>
@@ -88,13 +113,13 @@ const GuildStats: FC<GuildStatsProps> = ({ data, onClickUser }) => {
                 <div className={styles.column}>
                     <Button
                         onClick={() => {
-                            copyText(
-                                stringifyFailersList(
-                                    getFailedUsersList(sortedData, activeTab),
-                                    fullInfoToCopy,
-                                    activeTab,
-                                ),
-                            );
+                            // copyText(
+                            //     stringifyFailersList(
+                            //         getFailedUsersList(sortedData, activeTab),
+                            //         fullInfoToCopy,
+                            //         activeTab,
+                            //     ),
+                            // );
                         }}
                         buttonClass="buttonRed"
                         text={copyButtonText}

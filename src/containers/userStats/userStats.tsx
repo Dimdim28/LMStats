@@ -3,7 +3,7 @@ import { useTranslation } from 'react-i18next';
 
 import CopyIcon from '../../assets/copy-icon';
 import { Line, Progress, Title } from '../../components';
-import { ExcelUser } from '../../constants';
+import { ColumnNames, ExcelUser } from '../../constants';
 import { I18n } from '../../enums/i18n-text';
 import { getPercentValue } from '../../helpers';
 
@@ -14,37 +14,40 @@ import avatar from '../../assets/avatar.png';
 interface UserStatsProps {
     data: ExcelUser[] | null;
     user: string | null;
+    columnNames: Partial<Record<ColumnNames, string>>;
 }
 
-const UserStats: FC<UserStatsProps> = ({ data, user }) => {
+const UserStats: FC<UserStatsProps> = ({ data, user, columnNames }) => {
     const { t } = useTranslation();
     if (!data || !user) {
         return <div>Error</div>;
     }
-    const userData = data.find((el) => el.Name === user);
+    const userData = data.find(
+        (el) => (el[columnNames['Name'] as string] as string) === user,
+    );
 
     if (!userData) return <div>Error</div>;
 
     const {
-        Name,
-        'User ID': id,
-        Hunt,
-        Purchase,
-        Total,
-        'L1 (Hunt)': l1hunt,
-        'L2 (Hunt)': l2hunt,
-        'L3 (Hunt)': l3hunt,
-        'L4 (Hunt)': l4hunt,
-        'L5 (Hunt)': l5hunt,
-        'L1 (Purchase)': l1purch,
-        'L2 (Purchase)': l2purch,
-        'L3 (Purchase)': l3purch,
-        'L4 (Purchase)': l4purch,
-        'L5 (Purchase)': l5purch,
-        'Points (Hunt)': pointsHunt,
-        'Points (Purchase)': pointsPurchase,
-        'Goal Percentage (Hunt)': goalHunt,
-        'Goal Percentage (Purchase)': goalPurch,
+        [columnNames['Name'] as string]: Name,
+        [columnNames['UserID'] as string]: id,
+        [columnNames['HuntActions'] as string]: Hunt,
+        [columnNames['PurchActions'] as string]: Purchase,
+        [columnNames['TotalActions'] as string]: Total,
+        [columnNames['L1Hunt'] as string]: l1hunt,
+        [columnNames['L2Hunt'] as string]: l2hunt,
+        [columnNames['L3Hunt'] as string]: l3hunt,
+        [columnNames['L4Hunt'] as string]: l4hunt,
+        [columnNames['L5Hunt'] as string]: l5hunt,
+        [columnNames['L1Purch'] as string]: l1purch,
+        [columnNames['L2Purch'] as string]: l2purch,
+        [columnNames['L3Hunt'] as string]: l3purch,
+        [columnNames['L4Hunt'] as string]: l4purch,
+        [columnNames['L5Hunt'] as string]: l5purch,
+        [columnNames['HuntPoints'] as string]: pointsHunt,
+        [columnNames['PurchsPoints'] as string]: pointsPurchase,
+        [columnNames['HuntCompletion'] as string]: goalHunt,
+        [columnNames['PurchCompletion'] as string]: goalPurch,
     } = userData;
 
     return (
@@ -56,7 +59,7 @@ const UserStats: FC<UserStatsProps> = ({ data, user }) => {
                         <p className={styles.name}> {Name}</p>
                         <CopyIcon
                             className={styles.copyIcon}
-                            copyValue={Name}
+                            copyValue={'' + Name}
                         />
                     </div>
                     <div className={styles.line}>
@@ -65,7 +68,7 @@ const UserStats: FC<UserStatsProps> = ({ data, user }) => {
                         </p>
                         <CopyIcon
                             className={styles.copyIcon}
-                            copyValue={id.toString()}
+                            copyValue={(id as string).toString()}
                         />
                     </div>
                 </div>
@@ -93,7 +96,7 @@ const UserStats: FC<UserStatsProps> = ({ data, user }) => {
                         />
                     </div>
                     <div className={styles.progressWrapper}>
-                        <Progress value={getPercentValue(goalHunt)} />
+                        <Progress value={getPercentValue(goalHunt as number)} />
                     </div>
                 </div>
             </div>
@@ -112,7 +115,9 @@ const UserStats: FC<UserStatsProps> = ({ data, user }) => {
                         />
                     </div>
                     <div className={styles.progressWrapper}>
-                        <Progress value={getPercentValue(goalPurch)} />
+                        <Progress
+                            value={getPercentValue(goalPurch as number)}
+                        />
                     </div>
                 </div>
             </div>

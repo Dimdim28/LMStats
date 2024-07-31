@@ -4,7 +4,7 @@ import { useTranslation } from 'react-i18next';
 import * as XLSX from 'xlsx';
 
 import { Button } from '../../components';
-import { ExcelUser } from '../../constants';
+import { ColumnNames, columnNamesArray, ExcelUser } from '../../constants';
 import { I18n } from '../../enums/i18n-text';
 import { fixEmptyColumnNames } from '../../helpers/fixColumnNames';
 
@@ -12,15 +12,19 @@ import styles from './uploadFile.module.scss';
 
 interface UploadFileProps {
     setData: Dispatch<SetStateAction<ExcelUser[] | null>>;
+    setColumnNames: Dispatch<
+        SetStateAction<Partial<Record<ColumnNames, string>>>
+    >;
 }
 
-const UploadFile: FC<UploadFileProps> = ({ setData }) => {
+const UploadFile: FC<UploadFileProps> = ({ setData, setColumnNames }) => {
     const [localData, setLocalData] = useState<ExcelUser[] | null>(null);
     const [error] = useState<string | null>(null);
     const [titleLineNumber, setTitleLineNumber] = useState<number>(1);
     const [currentStep, setCurrentStep] = useState<
         'lineNumber' | 'columnNames' | 'inputFile'
     >('inputFile');
+    const [titles, setTitles] = useState<string[]>([]);
 
     const fileInputRef = useRef<HTMLInputElement | null>(null);
 
@@ -168,46 +172,52 @@ const UploadFile: FC<UploadFileProps> = ({ setData }) => {
                             titleLineNumber ? titleLineNumber - 1 : 0,
                         );
 
-                        console.log(slicedJson);
-                        // console.log(
-                        //     Object.entries(slicedJson[0])
-                        //         .filter(
-                        //             (el) =>
-                        //                 el[1].toString().trim().length === 0,
-                        //         )
-                        //         .map((el) => el[0]),
-                        // );
-                        // eslint-disable-next-line @typescript-eslint/no-unsafe-argument, @typescript-eslint/no-explicit-any
-                        console.log(titleLineNumber);
-                        const fixedData =
-                            titleLineNumber === 1
-                                ? slicedJson
-                                : // eslint-disable-next-line @typescript-eslint/no-explicit-any
-                                  fixEmptyColumnNames(slicedJson as any);
+                        if (titleLineNumber === 1) {
+                            setLocalData(slicedJson);
+                        } else {
+                            const fixedData = fixEmptyColumnNames(
+                                // eslint-disable-next-line @typescript-eslint/no-explicit-any
+                                slicedJson as any,
+                            );
+                            const { titles, data } = fixedData;
 
-                        console.log(fixedData);
+                            console.log(titles);
+                            setTitles(titles);
 
-                        setLocalData(fixedData);
+                            setLocalData(data);
+                        }
+
                         setCurrentStep('columnNames');
                     }}
                 />
             </div>
         );
     } else if (currentStep === 'columnNames') {
-        const titles = Object.keys(localData?.[0] || {});
-        console.log(titles);
         return (
             <div className={styles.enterLineContainer}>
                 <div className={styles.lineLabel}>
                     <p className={styles.text}>{t(I18n.SELECT_COLUMNS)}</p>
                 </div>
-                <select name="l1">
-                    {titles.map((el, id) => (
-                        <option key={id} value={el}>
-                            {el}
-                        </option>
-                    ))}
-                </select>
+                {columnNamesArray.map((el, key) => (
+                    <div className={styles.selectLine} key={key}>
+                        <p>{el}: </p>
+                        <select
+                            name="l1"
+                            onChange={(e) => {
+                                setColumnNames((data) => ({
+                                    ...data,
+                                    [el]: e.target.value,
+                                }));
+                            }}
+                        >
+                            {titles.map((title, id) => (
+                                <option key={id} value={title}>
+                                    {title}
+                                </option>
+                            ))}
+                        </select>
+                    </div>
+                ))}
 
                 <Button
                     text="Confirm"

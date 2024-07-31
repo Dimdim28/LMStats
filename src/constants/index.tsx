@@ -1,6 +1,6 @@
 export type Step = 'user' | 'guild' | 'upload' | 'info';
 export type ExcelUser = {
-    [key: string]: string;
+    [key: string]: string | number;
 };
 
 export enum ValidColumnsEnum {
@@ -52,3 +52,46 @@ export const ValidColumns: ValidColumnsEnum[] = [
 ];
 
 export type SortingTabType = 'Hunt' | 'Purchase' | 'All';
+
+export type ColumnNames =
+    | 'UserID'
+    | 'Name'
+    | 'TotalActions'
+    | 'HuntActions'
+    | 'PurchActions'
+    | 'L1Hunt'
+    | 'L2Hunt'
+    | 'L3Hunt'
+    | 'L4Hunt'
+    | 'L5Hunt'
+    | 'L1Purch'
+    | 'L2Purch'
+    | 'L3Purch'
+    | 'L4Purch'
+    | 'L5Purch'
+    | 'HuntPoints'
+    | 'PurchsPoints'
+    | 'HuntCompletion'
+    | 'PurchCompletion';
+
+export const columnNamesArray: ColumnNames[] = [
+    'UserID',
+    'Name',
+    'TotalActions',
+    'HuntActions',
+    'PurchActions',
+    'L1Hunt',
+    'L2Hunt',
+    'L3Hunt',
+    'L4Hunt',
+    'L5Hunt',
+    'L1Purch',
+    'L2Purch',
+    'L3Purch',
+    'L4Purch',
+    'L5Purch',
+    'HuntPoints',
+    'PurchsPoints',
+    'HuntCompletion',
+    'PurchCompletion',
+];
