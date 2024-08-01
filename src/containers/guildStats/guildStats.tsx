@@ -45,6 +45,8 @@ const GuildStats: FC<GuildStatsProps> = ({
     const sortedData = getSortedData(
         filterUsersByName(data, searchText, columnNames.Name as string),
         activeTab,
+        columnNames['HuntCompletion'] || '',
+        columnNames['PurchCompletion'] || '',
     );
 
     const areValueBiggerThan100 =
