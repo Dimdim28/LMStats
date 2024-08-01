@@ -26,6 +26,8 @@ const UserStats: FC<UserStatsProps> = ({ data, user, columnNames }) => {
         (el) => (el[columnNames['Name'] as string] as string) === user,
     );
 
+    console.log(userData, columnNames);
+
     if (!userData) return <div>Error</div>;
 
     const {
@@ -50,6 +52,27 @@ const UserStats: FC<UserStatsProps> = ({ data, user, columnNames }) => {
         [columnNames['PurchCompletion'] as string]: goalPurch,
     } = userData;
 
+    console.log(
+        Name,
+        id,
+        Hunt,
+        Purchase,
+        Total,
+        l1hunt,
+        l2hunt,
+        l3hunt,
+        l4hunt,
+        l5hunt,
+        l1purch,
+        l2purch,
+        l3purch,
+        l4purch,
+        l5purch,
+        pointsHunt,
+        pointsPurchase,
+        goalHunt,
+        goalPurch,
+    );
     return (
         <>
             <div className={styles.user}>
@@ -59,7 +82,7 @@ const UserStats: FC<UserStatsProps> = ({ data, user, columnNames }) => {
                         <p className={styles.name}> {Name}</p>
                         <CopyIcon
                             className={styles.copyIcon}
-                            copyValue={'' + Name}
+                            copyValue={Name as string}
                         />
                     </div>
                     <div className={styles.line}>
@@ -68,7 +91,7 @@ const UserStats: FC<UserStatsProps> = ({ data, user, columnNames }) => {
                         </p>
                         <CopyIcon
                             className={styles.copyIcon}
-                            copyValue={(id as string).toString()}
+                            copyValue={id as string}
                         />
                     </div>
                 </div>

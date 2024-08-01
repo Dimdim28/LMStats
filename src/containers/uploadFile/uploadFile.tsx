@@ -181,8 +181,29 @@ const UploadFile: FC<UploadFileProps> = ({ setData, setColumnNames }) => {
                             );
                             const { titles, data } = fixedData;
 
-                            console.log(titles);
                             setTitles(titles);
+                            const firstColumnName = titles[0];
+                            setColumnNames({
+                                'UserID': firstColumnName,
+                                'Name': firstColumnName,
+                                'TotalActions': firstColumnName,
+                                'HuntActions': firstColumnName,
+                                'PurchActions': firstColumnName,
+                                'L1Hunt': firstColumnName,
+                                'L2Hunt': firstColumnName,
+                                'L3Hunt': firstColumnName,
+                                'L4Hunt': firstColumnName,
+                                'L5Hunt': firstColumnName,
+                                'L1Purch': firstColumnName,
+                                'L2Purch': firstColumnName,
+                                'L3Purch': firstColumnName,
+                                'L4Purch': firstColumnName,
+                                'L5Purch': firstColumnName,
+                                'HuntPoints': firstColumnName,
+                                'PurchsPoints': firstColumnName,
+                                'HuntCompletion': firstColumnName,
+                                'PurchCompletion': firstColumnName,
+                            });
 
                             setLocalData(data);
                         }
