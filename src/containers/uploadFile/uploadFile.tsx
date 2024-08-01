@@ -12,12 +12,19 @@ import styles from './uploadFile.module.scss';
 
 interface UploadFileProps {
     setData: Dispatch<SetStateAction<ExcelUser[] | null>>;
+    setValuesBiggerThan100: Dispatch<SetStateAction<boolean>>;
     setColumnNames: Dispatch<
         SetStateAction<Partial<Record<ColumnNames, string>>>
     >;
+    columnNames: Partial<Record<ColumnNames, string>>;
 }
 
-const UploadFile: FC<UploadFileProps> = ({ setData, setColumnNames }) => {
+const UploadFile: FC<UploadFileProps> = ({
+    setData,
+    setColumnNames,
+    columnNames,
+    setValuesBiggerThan100,
+}) => {
     const [localData, setLocalData] = useState<ExcelUser[] | null>(null);
     const [error] = useState<string | null>(null);
     const [titleLineNumber, setTitleLineNumber] = useState<number>(1);
@@ -245,6 +252,17 @@ const UploadFile: FC<UploadFileProps> = ({ setData, setColumnNames }) => {
                     buttonClass="buttonYellow"
                     onClick={() => {
                         setData(localData);
+                        const areValueBiggerThan100 =
+                            localData?.some(
+                                (el) =>
+                                    (el[
+                                        columnNames['PurchCompletion'] as string
+                                    ] as number) >= 100 ||
+                                    (el[
+                                        columnNames['HuntCompletion'] as string
+                                    ] as number) >= 100,
+                            ) || false;
+                        setValuesBiggerThan100(areValueBiggerThan100);
                     }}
                 />
             </div>

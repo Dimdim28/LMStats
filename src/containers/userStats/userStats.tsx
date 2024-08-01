@@ -15,9 +15,15 @@ interface UserStatsProps {
     data: ExcelUser[] | null;
     user: string | null;
     columnNames: Partial<Record<ColumnNames, string>>;
+    valuesBiggerThan100: boolean;
 }
 
-const UserStats: FC<UserStatsProps> = ({ data, user, columnNames }) => {
+const UserStats: FC<UserStatsProps> = ({
+    data,
+    user,
+    columnNames,
+    valuesBiggerThan100,
+}) => {
     const { t } = useTranslation();
     if (!data || !user) {
         return <div>Error</div>;
@@ -119,7 +125,13 @@ const UserStats: FC<UserStatsProps> = ({ data, user, columnNames }) => {
                         />
                     </div>
                     <div className={styles.progressWrapper}>
-                        <Progress value={getPercentValue(goalHunt as number)} />
+                        <Progress
+                            value={
+                                valuesBiggerThan100
+                                    ? Math.round(goalHunt as number)
+                                    : getPercentValue(goalHunt as number)
+                            }
+                        />
                     </div>
                 </div>
             </div>
@@ -139,7 +151,11 @@ const UserStats: FC<UserStatsProps> = ({ data, user, columnNames }) => {
                     </div>
                     <div className={styles.progressWrapper}>
                         <Progress
-                            value={getPercentValue(goalPurch as number)}
+                            value={
+                                valuesBiggerThan100
+                                    ? Math.round(goalPurch as number)
+                                    : getPercentValue(goalPurch as number)
+                            }
                         />
                     </div>
                 </div>

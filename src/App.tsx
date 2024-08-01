@@ -32,6 +32,7 @@ const App = () => {
     const [currentStep, setCurrentStep] = useState<Step>('upload');
     const [data, setData] = useState<ExcelUser[] | null>(null);
     const [activeUser, setActiveUser] = useState<string | null>(null);
+    const [valuesBiggerThan100, setValuesBiggerThan100] = useState(false);
     const [columnNames, setColumnNames] = useState<
         Partial<Record<ColumnNames, string>>
     >({
@@ -121,6 +122,8 @@ const App = () => {
                         <UploadFile
                             setData={setData}
                             setColumnNames={setColumnNames}
+                            columnNames={columnNames}
+                            setValuesBiggerThan100={setValuesBiggerThan100}
                         />
                     )}
                     {currentStep === 'user' && (
@@ -128,6 +131,7 @@ const App = () => {
                             data={data}
                             user={activeUser}
                             columnNames={columnNames}
+                            valuesBiggerThan100={valuesBiggerThan100}
                         />
                     )}
                     {currentStep === 'guild' && (
@@ -135,6 +139,7 @@ const App = () => {
                             data={data}
                             onClickUser={handleUserClick}
                             columnNames={columnNames}
+                            valuesBiggerThan100={valuesBiggerThan100}
                         />
                     )}
                     {currentStep === 'info' && <Info data={infoPageData} />}

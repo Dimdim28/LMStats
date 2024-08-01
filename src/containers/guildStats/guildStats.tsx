@@ -20,12 +20,14 @@ interface GuildStatsProps {
     data: ExcelUser[] | null;
     onClickUser: (userName: string) => void;
     columnNames: Partial<Record<ColumnNames, string>>;
+    valuesBiggerThan100: boolean;
 }
 
 const GuildStats: FC<GuildStatsProps> = ({
     data,
     onClickUser,
     columnNames,
+    valuesBiggerThan100,
 }) => {
     const [activeTab, setActiveTab] = useState<SortingTabType>('Hunt');
     const [fullInfoToCopy, setFullInfoToCopy] = useState(false);
@@ -48,14 +50,6 @@ const GuildStats: FC<GuildStatsProps> = ({
         columnNames['HuntCompletion'] || '',
         columnNames['PurchCompletion'] || '',
     );
-
-    const areValueBiggerThan100 =
-        data?.some(
-            (el) =>
-                (el[columnNames['PurchCompletion'] as string] as number) >=
-                    100 ||
-                (el[columnNames['HuntCompletion'] as string] as number) >= 100,
-        ) || false;
 
     return (
         <div>
@@ -100,7 +94,7 @@ const GuildStats: FC<GuildStatsProps> = ({
                                 activeTab,
                                 columnNames['PurchCompletion'] as string,
                                 columnNames['HuntCompletion'] as string,
-                                areValueBiggerThan100,
+                                valuesBiggerThan100,
                             ),
                         )}
                         onClick={() =>
