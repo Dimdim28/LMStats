@@ -46,6 +46,7 @@ const UploadFile: FC<UploadFileProps> = ({
                 const sheetName = workbook.SheetNames[0];
                 const worksheet = workbook.Sheets[sheetName];
                 const json: ExcelUser[] = XLSX.utils.sheet_to_json(worksheet);
+                console.log(json);
 
                 setLocalData(json);
                 setCurrentStep('lineNumber');
@@ -177,10 +178,15 @@ const UploadFile: FC<UploadFileProps> = ({
                     onClick={() => {
                         const slicedJson = (localData as ExcelUser[]).slice(
                             titleLineNumber ? titleLineNumber - 1 : 0,
-                        );
+                        ); //add here code to remove empty columns | better with additional helpers function
 
                         if (titleLineNumber === 1) {
                             setLocalData(slicedJson);
+                            const titles = Object.keys(slicedJson[0]).filter(
+                                (el) =>
+                                    `${slicedJson[0][el]}`.trim().length > 0,
+                            );
+                            setTitles(titles);
                         } else {
                             const fixedData = fixEmptyColumnNames(
                                 // eslint-disable-next-line @typescript-eslint/no-explicit-any
