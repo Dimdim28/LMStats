@@ -1,11 +1,13 @@
 /* eslint-disable @typescript-eslint/no-unsafe-argument */
 import { Dispatch, FC, SetStateAction, useRef, useState } from 'react';
 import { useTranslation } from 'react-i18next';
+import clsx from 'clsx';
 import * as XLSX from 'xlsx';
 
 import { Button } from '../../components';
 import { ColumnNames, columnNamesArray, ExcelUser } from '../../constants';
 import { I18n } from '../../enums/i18n-text';
+import { deleteEmptyExelUserFields } from '../../helpers/deleteEmptyExelUserFields';
 import { fixEmptyColumnNames } from '../../helpers/fixColumnNames';
 
 import styles from './uploadFile.module.scss';
@@ -18,6 +20,8 @@ interface UploadFileProps {
     >;
     columnNames: Partial<Record<ColumnNames, string>>;
 }
+
+const SELECT_COLUMN = 'Select Column';
 
 const UploadFile: FC<UploadFileProps> = ({
     setData,
@@ -46,7 +50,6 @@ const UploadFile: FC<UploadFileProps> = ({
                 const sheetName = workbook.SheetNames[0];
                 const worksheet = workbook.Sheets[sheetName];
                 const json: ExcelUser[] = XLSX.utils.sheet_to_json(worksheet);
-                console.log(json);
 
                 setLocalData(json);
                 setCurrentStep('lineNumber');
@@ -76,7 +79,13 @@ const UploadFile: FC<UploadFileProps> = ({
             // validateAndParseFile(droppedFile);
         }
     };
+    const handleIncreaseLineNumber = () => {
+        setTitleLineNumber(titleLineNumber + 1);
+    };
 
+    const handleDecreaseLineNumber = () => {
+        if (titleLineNumber > 1) setTitleLineNumber(titleLineNumber - 1);
+    };
     const handleDragOver = (event: React.DragEvent<HTMLDivElement>): void => {
         event.preventDefault();
     };
@@ -162,13 +171,23 @@ const UploadFile: FC<UploadFileProps> = ({
         return (
             <div className={styles.enterLineContainer}>
                 <input
-                    value={titleLineNumber || 1}
+                    value={titleLineNumber}
                     onChange={(e) => setTitleLineNumber(+e.target.value)}
-                    type="number"
                     className={styles.inputNumber}
-                    step={1}
-                    min={0}
+                    readOnly
                 />
+                <div className={styles.lineButtonContainer}>
+                    <Button
+                        text="-1"
+                        buttonClass="buttonYellow"
+                        onClick={handleDecreaseLineNumber}
+                    />
+                    <Button
+                        text="+1"
+                        buttonClass="buttonYellow"
+                        onClick={handleIncreaseLineNumber}
+                    />
+                </div>
                 <div className={styles.lineLabel}>
                     <p className={styles.text}>{t(I18n.SELECT_LINE)}</p>
                 </div>
@@ -179,12 +198,17 @@ const UploadFile: FC<UploadFileProps> = ({
                         const slicedJson = (localData as ExcelUser[]).slice(
                             titleLineNumber ? titleLineNumber - 1 : 0,
                         ); //add here code to remove empty columns | better with additional helpers function
+                        const normalizedUserList =
+                            deleteEmptyExelUserFields(slicedJson);
 
                         if (titleLineNumber === 1) {
-                            setLocalData(slicedJson);
-                            const titles = Object.keys(slicedJson[0]).filter(
+                            setLocalData(normalizedUserList);
+                            const titles = Object.keys(
+                                normalizedUserList[0],
+                            ).filter(
                                 (el) =>
-                                    `${slicedJson[0][el]}`.trim().length > 0,
+                                    `${normalizedUserList[0][el]}`.trim()
+                                        .length > 0,
                             );
                             setTitles(titles);
                         } else {
@@ -228,50 +252,77 @@ const UploadFile: FC<UploadFileProps> = ({
         );
     } else if (currentStep === 'columnNames') {
         return (
-            <div className={styles.enterLineContainer}>
-                <div className={styles.lineLabel}>
-                    <p className={styles.text}>{t(I18n.SELECT_COLUMNS)}</p>
-                </div>
-                {columnNamesArray.map((el, key) => (
-                    <div className={styles.selectLine} key={key}>
-                        <p>{el}: </p>
-                        <select
-                            name="l1"
-                            onChange={(e) => {
-                                setColumnNames((data) => ({
-                                    ...data,
-                                    [el]: e.target.value,
-                                }));
-                            }}
-                        >
-                            {titles.map((title, id) => (
-                                <option key={id} value={title}>
-                                    {title}
-                                </option>
-                            ))}
-                        </select>
+            <>
+                <div className={styles.enterLineContainer}>
+                    <div className={styles.lineLabel}>
+                        <p className={styles.text}>{t(I18n.SELECT_COLUMNS)}</p>
                     </div>
-                ))}
+                    {columnNamesArray.map((el, key) => (
+                        <div className={styles.selectLine} key={key}>
+                            <p
+                                className={clsx({
+                                    [styles.labelRed]: !columnNames[el],
+                                    [styles.labelGreen]: columnNames[el],
+                                })}
+                            >
+                                {el}:{' '}
+                            </p>
+                            <select
+                                className={clsx(styles.lineSelect)}
+                                name="l1"
+                                onChange={(e) => {
+                                    setColumnNames((data) => ({
+                                        ...data,
+                                        [el]: e.target.value,
+                                    }));
 
-                <Button
-                    text="Confirm"
-                    buttonClass="buttonYellow"
-                    onClick={() => {
-                        setData(localData);
-                        const areValueBiggerThan100 =
-                            localData?.some(
-                                (el) =>
-                                    (el[
-                                        columnNames['PurchCompletion'] as string
-                                    ] as number) >= 100 ||
-                                    (el[
-                                        columnNames['HuntCompletion'] as string
-                                    ] as number) >= 100,
-                            ) || false;
-                        setValuesBiggerThan100(areValueBiggerThan100);
+                                    console.log(columnNames);
+                                }}
+                            >
+                                <option value="" disabled selected>
+                                    {SELECT_COLUMN}
+                                </option>
+                                {titles.map((title, id) => (
+                                    <option key={id} value={title}>
+                                        {title}
+                                    </option>
+                                ))}
+                            </select>
+                        </div>
+                    ))}
+                </div>
+                <div
+                    style={{
+                        display: 'flex',
+                        justifyContent: 'center',
+                        margin: '30px',
+                        paddingBottom: '30px',
                     }}
-                />
-            </div>
+                >
+                    <Button
+                        text="Confirm"
+                        buttonClass="buttonYellow"
+                        onClick={() => {
+                            setData(localData);
+                            const areValueBiggerThan100 =
+                                localData?.some(
+                                    (el) =>
+                                        (el[
+                                            columnNames[
+                                                'PurchCompletion'
+                                            ] as string
+                                        ] as number) >= 100 ||
+                                        (el[
+                                            columnNames[
+                                                'HuntCompletion'
+                                            ] as string
+                                        ] as number) >= 100,
+                                ) || false;
+                            setValuesBiggerThan100(areValueBiggerThan100);
+                        }}
+                    />
+                </div>
+            </>
         );
     }
 };
