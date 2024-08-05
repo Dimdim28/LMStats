@@ -3,6 +3,8 @@ import { I18n } from '../enums/i18n-text';
 const EN = {
     [I18n.UPLOAD_FILE]:
         'Click here and choose your file or drag and drop it here',
+    [I18n.SELECT_LINE]: 'Select number of line with your titles of columns',
+    [I18n.SELECT_COLUMNS]: 'Select column names',
     [I18n.USER_SEARCH]: 'Search user...',
     [I18n.HUNT]: 'Hunt',
     [I18n.PURCHASE]: 'Purchase',

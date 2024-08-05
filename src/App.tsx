@@ -1,21 +1,23 @@
-import { lazy, Suspense, useEffect, useRef, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import { initReactI18next } from 'react-i18next';
 import { use } from 'i18next';
 
+import GuildStats from './containers/guildStats/guildStats';
 import { Header } from './containers/header/header';
+import Info from './containers/info/info';
+import UploadFile from './containers/uploadFile/uploadFile';
+import UserStats from './containers/userStats/userStats';
 import { Language } from './enums/language';
 import { LocalStorageKey } from './enums/storage';
 import { initLanguage } from './helpers/initLanguage';
 import useInfoPageData from './hooks/useInfoPageData';
-import { ExcelUser, Step } from './constants';
+// const GuildStats = lazy(() => import('./containers/guildStats/guildStats'));
+// const UploadFile = lazy(() => import('./containers/uploadFile/uploadFile'));
+// const UserStats = lazy(() => import('./containers/userStats/userStats'));
+// const Info = lazy(() => import('./containers/info/info'));
+// import { Preloader } from './components';
+import { ColumnNames, ExcelUser, Step } from './constants';
 import TRANSLATIONS from './languages';
-
-const GuildStats = lazy(() => import('./containers/guildStats/guildStats'));
-const UploadFile = lazy(() => import('./containers/uploadFile/uploadFile'));
-const UserStats = lazy(() => import('./containers/userStats/userStats'));
-const Info = lazy(() => import('./containers/info/info'));
-
-import { Preloader } from './components';
 
 import './styles/index.scss';
 
@@ -30,6 +32,30 @@ const App = () => {
     const [currentStep, setCurrentStep] = useState<Step>('upload');
     const [data, setData] = useState<ExcelUser[] | null>(null);
     const [activeUser, setActiveUser] = useState<string | null>(null);
+    const [valuesBiggerThan100, setValuesBiggerThan100] = useState(false);
+    const [columnNames, setColumnNames] = useState<
+        Partial<Record<ColumnNames, string>>
+    >({
+        'UserID': '',
+        'Name': '',
+        'TotalActions': '',
+        'HuntActions': '',
+        'PurchActions': '',
+        'L1Hunt': '',
+        'L2Hunt': '',
+        'L3Hunt': '',
+        'L4Hunt': '',
+        'L5Hunt': '',
+        'L1Purch': '',
+        'L2Purch': '',
+        'L3Purch': '',
+        'L4Purch': '',
+        'L5Purch': '',
+        'HuntPoints': '',
+        'PurchsPoints': '',
+        'HuntCompletion': '',
+        'PurchCompletion': '',
+    });
 
     const scrollableContainerRef = useRef<HTMLDivElement>(null);
 
@@ -91,21 +117,33 @@ const App = () => {
                 className={!data || !activeUser ? 'hidden' : undefined}
             >
                 <div className="container ">
-                    <Suspense fallback={<Preloader />}>
-                        {currentStep === 'upload' && (
-                            <UploadFile setData={setData} />
-                        )}
-                        {currentStep === 'user' && (
-                            <UserStats data={data} user={activeUser} />
-                        )}
-                        {currentStep === 'guild' && (
-                            <GuildStats
-                                data={data}
-                                onClickUser={handleUserClick}
-                            />
-                        )}
-                        {currentStep === 'info' && <Info data={infoPageData} />}
-                    </Suspense>
+                    {/* <Suspense fallback={<Preloader />}> */}
+                    {currentStep === 'upload' && (
+                        <UploadFile
+                            setData={setData}
+                            setColumnNames={setColumnNames}
+                            columnNames={columnNames}
+                            setValuesBiggerThan100={setValuesBiggerThan100}
+                        />
+                    )}
+                    {currentStep === 'user' && (
+                        <UserStats
+                            data={data}
+                            user={activeUser}
+                            columnNames={columnNames}
+                            valuesBiggerThan100={valuesBiggerThan100}
+                        />
+                    )}
+                    {currentStep === 'guild' && (
+                        <GuildStats
+                            data={data}
+                            onClickUser={handleUserClick}
+                            columnNames={columnNames}
+                            valuesBiggerThan100={valuesBiggerThan100}
+                        />
+                    )}
+                    {currentStep === 'info' && <Info data={infoPageData} />}
+                    {/* </Suspense> */}
                 </div>
             </main>
         </>

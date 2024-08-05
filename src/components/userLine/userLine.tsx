@@ -3,7 +3,7 @@ import { FC } from 'react';
 import styles from './userLine.module.scss';
 
 interface UserLineProps {
-    name: string;
+    name?: string | number;
     value: number;
     onClick: () => void;
 }
@@ -14,7 +14,9 @@ export const UserLine: FC<UserLineProps> = ({ name, value, onClick }) => {
 
     return (
         <button className={styles.button} onClick={onClick}>
-            <p className={styles.name}>{name}</p>
+            <p className={styles.name}>
+                {name && typeof name === 'string' ? name : '-'}
+            </p>
             <span
                 className={styles.value}
                 style={{ color: `rgb(${red}, ${green}, 0)` }}

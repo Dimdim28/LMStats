@@ -1,5 +1,7 @@
 export enum I18n {
     UPLOAD_FILE = 'upload_file',
+    SELECT_LINE = 'select_line',
+    SELECT_COLUMNS = 'select_columns',
     USER_SEARCH = 'user_search',
     HUNT = 'hunt',
     PURCHASE = 'purchase',

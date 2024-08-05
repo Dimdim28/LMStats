@@ -1,31 +1,6 @@
 export type Step = 'user' | 'guild' | 'upload' | 'info';
 export type ExcelUser = {
-    ' ': '';
-    ' _1': '';
-    ' _2': '';
-    ' _3': '';
-    ' _4': '';
-    'First Hunt Time': number;
-    'Goal Percentage (Hunt)': number;
-    'Goal Percentage (Purchase)': number;
-    'Hunt': number;
-    'L1 (Hunt)': number;
-    'L1 (Purchase)': number;
-    'L2 (Hunt)': number;
-    'L2 (Purchase)': number;
-    'L3 (Hunt)': number;
-    'L3 (Purchase)': number;
-    'L4 (Hunt)': number;
-    'L4 (Purchase)': number;
-    'L5 (Hunt)': number;
-    'L5 (Purchase)': number;
-    'Last Hunt Time': number;
-    'Name': string;
-    'Points (Hunt)': number;
-    'Points (Purchase)': number;
-    'Purchase': number;
-    'Total': number;
-    'User ID': number;
+    [key: string]: string | number;
 };
 
 export enum ValidColumnsEnum {
@@ -77,3 +52,46 @@ export const ValidColumns: ValidColumnsEnum[] = [
 ];
 
 export type SortingTabType = 'Hunt' | 'Purchase' | 'All';
+
+export type ColumnNames =
+    | 'UserID'
+    | 'Name'
+    | 'TotalActions'
+    | 'HuntActions'
+    | 'PurchActions'
+    | 'L1Hunt'
+    | 'L2Hunt'
+    | 'L3Hunt'
+    | 'L4Hunt'
+    | 'L5Hunt'
+    | 'L1Purch'
+    | 'L2Purch'
+    | 'L3Purch'
+    | 'L4Purch'
+    | 'L5Purch'
+    | 'HuntPoints'
+    | 'PurchsPoints'
+    | 'HuntCompletion'
+    | 'PurchCompletion';
+
+export const columnNamesArray: ColumnNames[] = [
+    'UserID',
+    'Name',
+    'TotalActions',
+    'HuntActions',
+    'PurchActions',
+    'L1Hunt',
+    'L2Hunt',
+    'L3Hunt',
+    'L4Hunt',
+    'L5Hunt',
+    'L1Purch',
+    'L2Purch',
+    'L3Purch',
+    'L4Purch',
+    'L5Purch',
+    'HuntPoints',
+    'PurchsPoints',
+    'HuntCompletion',
+    'PurchCompletion',
+];
